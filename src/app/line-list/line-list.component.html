@@ -1,0 +1,8 @@
+<!-- line-list.component.html -->
+<div *ngIf="lines.length > 0" div class="list-group">
+  <a *ngFor="let line of lines" routerLink="/lines/{{ line.id }}" class="list-group-item list-group-item-action">{{ line.number }}</a>
+</div>
+<div *ngIf="lines.length == 0">
+<h2>No lines</h2>
+<p>Please import the lines</p>
+</div>

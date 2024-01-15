@@ -1,0 +1,27 @@
+<!-- destination-list.component.html -->
+<h2>Destination List</h2>
+
+
+<ngx-datatable #destinationsTable class="bootstrap container striped"[rows]="destinations" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType" [selected]="selectedRow" (select)="onSelected($event)" [limit]="50"
+>
+  <ngx-datatable-column name="Destination ID">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.id }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Name">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.name }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Short Name">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+    {{ row.short_name }}
+    </ng-template>
+  </ngx-datatable-column>
+
+
+
+  <!-- Add additional columns as needed -->
+
+</ngx-datatable>

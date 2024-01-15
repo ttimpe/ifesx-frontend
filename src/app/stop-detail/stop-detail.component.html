@@ -1,0 +1,30 @@
+<div *ngIf="stop">
+  <h2>{{ stop.name }} Details</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="stopName">Name:</label>
+      <input type="text" id="stopName" name="stopName" [(ngModel)]="stop.name" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="stopLatitude">Latitude:</label>
+      <input type="number" id="stopLatitude" name="stopLatitude" [(ngModel)]="stop.latitude" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="stopLongitude">Longitude:</label>
+      <input type="number" id="stopLongitude" name="stopLongitude" [(ngModel)]="stop.longitude" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="stopCode">Code:</label>
+      <input type="text" id="code" name="code" [(ngModel)]="stopInformation.code" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="stopNumber">Number:</label>
+      <input type="text" id="code" name="number" [(ngModel)]="stopInformation.number" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="stopShortName">Short Name:</label>
+      <input type="text" id="shortname" name="shortname" [(ngModel)]="stopInformation.shortName" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>

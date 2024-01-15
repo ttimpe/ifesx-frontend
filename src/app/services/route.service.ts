@@ -1,0 +1,27 @@
+// route.service.ts
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Route } from '../models/route.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RouteService {
+  private apiUrl = 'http://localhost:3000'; // Update with your API URL
+
+  constructor(private http: HttpClient) { }
+
+  getRoutesByLine(lineId: string) {
+    return this.http.get<Route[]>(`${this.apiUrl}/lines/${lineId}/routes`);
+  }
+  getRouteByLine(lineId: string, routeId: number): Observable<any> {
+    const url = `${this.apiUrl}/lines/${lineId}/routes/${routeId}`;
+    return this.http.get<Route>(url);
+  }
+  updateRoute(route: any): Observable<any> {
+    const url = `${this.apiUrl}/lines/${route.line_id}/routes/${route.id}`;
+    return this.http.put<Route>(url, route);
+  }
+}

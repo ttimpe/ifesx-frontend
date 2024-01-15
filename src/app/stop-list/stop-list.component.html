@@ -1,0 +1,40 @@
+<!-- line-list.component.html -->
+<input
+        type="text"
+        style="padding:8px;margin:15px auto;width:30%;"
+        placeholder="Type to filter the name column..."
+        (keyup)="updateFilter($event)"
+      />
+<div class="list-group">
+  <ngx-datatable #stopTable class="bootstrap container striped"[rows]="stops" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType" [selected]="selectedRow" (select)="onSelected($event)" [limit]="50"
+  >
+    <ngx-datatable-column name="Stop ID">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row.id }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Name">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row.name }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Type">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <p *ngIf="row.stopType == 0">Unknown</p>
+        <p *ngIf="row.stopType == 7">Bus</p>
+        <p *ngIf="row.stopType == 8">Tram</p>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Parent">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <p *ngIf="row.parent != null">{{ row.parent.name }}</p>
+
+      </ng-template>
+    </ngx-datatable-column>
+
+
+
+    <!-- Add additional columns as needed -->
+
+  </ngx-datatable>
+</div>

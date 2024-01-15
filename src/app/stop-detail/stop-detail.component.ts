@@ -1,0 +1,38 @@
+import { StopInformation } from './../models/stop-information.model';
+import { Component, Input } from '@angular/core';
+import { Stop } from '../models/stop.model';
+import { StopService } from '../services/stop.service';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-stop-detail',
+  templateUrl: './stop-detail.component.html',
+  styleUrls: ['./stop-detail.component.css']
+})
+export class StopDetailComponent {
+  stop?: Stop
+  stopInformation: StopInformation = new StopInformation()
+  constructor(private route: ActivatedRoute, private stopService: StopService) {
+
+  }
+
+  ngAfterViewInit() {
+    this.route.params.subscribe(params => {
+       const stopId = params['stopId'];
+
+      this.stopService.getStopById(stopId).subscribe(stop => {
+        this.stop = stop;
+        if (this.stop.information) {
+          this.stopInformation = this.stop.information
+        }
+      });
+    });
+  }
+  onSubmit(): void {
+    if (this.stop) {
+      this.stop.information = this.stopInformation
+      this.stopService.updateStop(this.stop)
+        .subscribe(updatedStop => this.stop = updatedStop);
+    }
+  }
+}
