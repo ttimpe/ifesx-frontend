@@ -25,9 +25,9 @@ export class LineService {
     return this.http.post<Line>(this.apiUrl, line);
   }
 
-  updateLine(id: string, destination: Line): Observable<Line> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.put<Line>(url, destination);
+  updateLine(line: Line): Observable<Line> {
+    const url = `${this.apiUrl}/${line.id}`;
+    return this.http.put<Line>(url, line);
   }
 
 }

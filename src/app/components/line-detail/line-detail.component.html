@@ -1,0 +1,60 @@
+<!-- line-detail.component.html -->
+<app-titlebar [title]="'Linie'" [canGoBack]="true"></app-titlebar>
+<div *ngIf="line">
+  <form (ngSubmit)="saveLine()">
+    <div class="form-group row">
+      <label for="number" class="col-form-label col-sm-2">Liniennummer:</label>
+      <div class="col-sm-10">
+      <input type="text" id="number" class="form-control" [(ngModel)]="line.number" name="number" required>
+    </div>
+    </div>
+    <div class="form-group row">
+      <label for="color"  class="col-form-label col-sm-2">Linienfarbe:</label>
+      <div class="col-sm-10">
+      <input type="color" id="color" class="form-control" [(ngModel)]="line.color" name="color" required>
+    </div>
+    </div>
+    <div class="form-group row">
+      <label for="text_color" class="col-form-label col-sm-2">Textfarbe:</label>
+      <div class="col-sm-10">
+      <input type="color" id="text_color" class="form-control" [(ngModel)]="line.text_color" name="text_color" required>
+    </div>
+    </div>
+    <!-- Add other form fields as needed -->
+  </form>
+
+</div>
+<div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+<span class="fs-6 fw-semibold">Routen</span>
+<div>
+  <button class="btn btn-success mx-2" type="button" (click)="addRoute()">Add Route</button>
+  <button class="btn btn-warning mx-2" type="button" (click)="editRoute()" [disabled]="selectedRoute.length == 0">Edit Route</button>
+  <button class="btn btn-danger mx-2" type="button" [disabled]="selectedRoute.length == 0" (click)="deleteRoute()">Delete Route</button>
+</div>
+</div>
+
+<ngx-datatable #routesTable class="bootstrap container striped" [rows]="routes" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType" [selected]="selectedRoute" (select)="onSelected($event)" [limit]="50"
+>
+  <ngx-datatable-column name="ID">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.number }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Von">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.stops[0].stop.name }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Nach">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+    {{ row.stops[row.stops.length - 1].stop.name }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Ziel">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+    {{ row.routeDestination.name }}
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
+<button (click)="saveLine()" class="btn btn-primary">Speichern</button>
+

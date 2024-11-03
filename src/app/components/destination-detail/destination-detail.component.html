@@ -1,0 +1,39 @@
+<!-- destination-detail.component.html -->
+<app-titlebar [title]="'Ziel'" [canGoBack]="true">
+</app-titlebar>
+<div *ngIf="destination">
+  <form (ngSubmit)="saveDestination()">
+<div class="form-group row">
+    <label for="number" class="col-form-label col-sm-2">Nummer:</label>
+    <div class="col-sm-10">
+      <input type="text" id="number" [(ngModel)]="destination.number" name="number" required class="form-control">
+    </div>
+    </div>
+    <div class="form-group row">
+      <label for="name" class="col-form-label col-sm-2">Name:</label>
+      <div class="col-sm-10">
+
+      <input type="text" id="name" [(ngModel)]="destination.name" name="name" required class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="short_name" class="col-form-label col-sm-2">Kurzname:</label>
+      <div class="col-sm-10">
+
+      <input type="text" id="short_name" [(ngModel)]="destination.short_name" name="short_name" required class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="sign_text" class="col-form-label col-sm-2">Anzeigentext:</label>
+      <div class="col-sm-10">
+      <input type="text" id="sign_text" [(ngModel)]="destination.sign_text" name="sign_text" required class="form-control">
+      </div>
+    </div>
+    <!-- Add other form fields as needed -->
+    <div class="form-group row">
+      <div class="col-sm-10">
+    <button (click)="saveDestination()" class="btn btn-primary">Speichern</button>
+    </div>
+    </div>
+  </form>
+</div>

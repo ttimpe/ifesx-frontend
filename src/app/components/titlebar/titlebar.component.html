@@ -1,0 +1,5 @@
+<div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+  <button *ngIf="canGoBack" class="btn btn-default" (click)="onBackButton()"><fa-icon [icon]="faChevronLeft"></fa-icon></button>
+  <span class="fs-5 fw-semibold">{{ title }}</span>
+  <ng-content></ng-content>
+</div>

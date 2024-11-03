@@ -1,0 +1,37 @@
+<!-- destination-list.component.html -->
+<app-titlebar [title]="'Ziele'">
+  <div class="btn-toolbar">
+    <button class="btn mx-1" type="button" (click)="addDestination()"><fa-icon [icon]="faPlus"></fa-icon></button>
+<button class="btn mx-1" type="button" (click)="editDestination()" [disabled]="selectedRow.length == 0"><fa-icon [icon]="faPenSquare"></fa-icon></button>
+<button class="btn mx-1" type="button" [disabled]="selectedRow.length == 0" (click)="deleteDestination()"><fa-icon [icon]="faTrash"></fa-icon></button>
+    </div>
+</app-titlebar>
+
+
+<ngx-datatable #destinationsTable class="bootstrap container striped"[rows]="destinations" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType" [selected]="selectedRow" (select)="onSelected($event)" [limit]="50"
+>
+  <ngx-datatable-column name="Nummer">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.id }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Ziel">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.name }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Kurzname">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+    {{ row.short_name }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Anzeigentext">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+    {{ row.sign_text }}
+    </ng-template>
+  </ngx-datatable-column>
+
+
+  <!-- Add additional columns as needed -->
+
+</ngx-datatable>

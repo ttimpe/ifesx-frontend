@@ -9,6 +9,7 @@ export class Stop  {
   information!: StopInformation
 
   get stopType(): number {
+    console.log('getStopType')
     const parts = this.id.split(':')
     if (parts.length = 5) {
       const type = parseInt(parts[4][0])

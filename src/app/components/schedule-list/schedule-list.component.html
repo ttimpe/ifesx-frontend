@@ -1,0 +1,33 @@
+<!-- destination-list.component.html -->
+<app-titlebar [title]="'Fahrplan'">
+  <div class="btn-toolbar">
+    <button class="btn mx-1" type="button" (click)="addSchedule()"><fa-icon [icon]="faPlus"></fa-icon></button>
+    <button class="btn mx-1" type="button" (click)="editSchedule()" [disabled]="selectedRow.length == 0"><fa-icon [icon]="faPenSquare"></fa-icon></button>
+    <button class="btn mx-1" type="button" [disabled]="selectedRow.length == 0" (click)="deleteSchedule()"><fa-icon [icon]="faTrash"></fa-icon></button>
+    </div>
+</app-titlebar>
+
+
+<ngx-datatable #announcementsTable class="bootstrap container striped"[rows]="schedules" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType" [selected]="selectedRow" (select)="onSelected($event)" [limit]="50"
+>
+  <ngx-datatable-column name="Umlauf">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.number }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Ausfahrt">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.departureTime }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Einfahrt">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.arrivalTime }}
+    </ng-template>
+  </ngx-datatable-column>
+
+
+
+  <!-- Add additional columns as needed -->
+
+</ngx-datatable>

@@ -1,0 +1,34 @@
+<!-- line-list.component.html -->
+<app-titlebar [title]="'Linien'">
+  <div class="btn-toolbar">
+    <button class="btn mx-1" type="button" (click)="addLine()"><fa-icon [icon]="faPlus"></fa-icon></button>
+<button class="btn mx-1" type="button" (click)="editLine()" [disabled]="selectedRow.length == 0"><fa-icon [icon]="faPenSquare"></fa-icon></button>
+<button class="btn mx-1" type="button" [disabled]="selectedRow.length == 0" (click)="deleteLine()"><fa-icon [icon]="faTrash"></fa-icon></button>
+    </div>
+</app-titlebar>
+<div class="list-group">
+  <ngx-datatable #destinationsTable class="bootstrap container striped"[rows]="lines" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType" [selected]="selectedRow" (select)="onSelected($event)" [limit]="50"
+>
+  <ngx-datatable-column name="ID">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.id }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Liniennummer">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <span class="line-number-block" style="color: {{ row.text_color }}; background-color: {{ row.color }}">{{ row.number }}</span>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Typ">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+    {{ row.type }}
+    </ng-template>
+  </ngx-datatable-column>
+
+
+
+  <!-- Add additional columns as needed -->
+
+</ngx-datatable>
+</div>
+

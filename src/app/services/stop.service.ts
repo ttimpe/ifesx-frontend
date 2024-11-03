@@ -23,11 +23,18 @@ export class StopService {
     const url = `${this.apiUrl}/stops/${id}`;
     return this.http.get<Stop>(url);
   }
+  getStopsByCode(code: string): Observable<Stop[]> {
+    const url = `${this.apiUrl}/stops/search/${code}`;
+    return this.http.get<Stop[]>(url);
+  }
+
 
   searchStopsByName(name: string): Observable<Stop[]> {
+
     return this.getAllStops().pipe(
       // Filter stops based on the search term
-      map(stops => stops.filter(stop => stop.name.toLowerCase().includes(name.toLowerCase())))
+      map(stops => stops.filter(stop =>
+          stop.name.toLowerCase().includes(name.toLowerCase())))
     );
   }
   updateStop(stop: Stop): Observable<Stop> {

@@ -1,0 +1,69 @@
+<app-titlebar [title]="'Umlauf bearbeiten'" [canGoBack]="true">
+</app-titlebar>
+<div>
+  <form>
+    <div class="form-group row">
+      <label for="number" class="col-form-label col-sm-2">Nummer:</label>
+      <div class="col-sm-10">
+        <input type="text" id="number" [(ngModel)]="schedule.number" name="number" required class="form-control">
+      </div>
+      </div>
+      <div class="form-group row">
+        <label for="number" class="col-form-label col-sm-2">Tagtyp:</label>
+        <div class="col-sm-10">
+          <select name="daytype" id="daytype" [(ngModel)]="schedule.daytype" class="form-control">
+            <option [ngValue]="0">Mo–Fr</option>
+            <option [ngValue]="1">Sa</option>
+            <option [ngValue]="2">So</option>
+          </select>
+        </div>
+        </div>
+        <div class="form-group row">
+          <label for="number" class="col-form-label col-sm-2">Ausfahrt:</label>
+          <div class="col-sm-10">
+            <input type="time" id="departureTime" [(ngModel)]="schedule.departureTime" name="departureTime" required class="form-control">
+          </div>
+          </div>
+          <button (click)="saveSchedule()" class="btn btn-primary">Speichern</button>
+
+        <div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+          <span class="fs-6 fw-semibold">Fahrten</span>
+          <div>
+            <button class="btn btn-success mx-2" type="button" (click)="addTrip()" >Fahrt hinzufügen</button>
+            <button class="btn btn-warning mx-2" type="button" (click)="editTrip()" [disabled]="selectedTrip.length == 0">Fahrt bearbeiten</button>
+            <button class="btn btn-info mx-2" type="button" (click)="repeatTrip()" [disabled]="selectedTrip.length == 0">Fahrt wiederholen</button>
+            <button class="btn btn-danger mx-2" type="button" [disabled]="selectedTrip.length == 0" (click)="deleteTrip()">Fahrt löschen</button>
+          </div>
+          </div>
+
+          <ngx-datatable #tripsTable class="bootstrap container striped" [rows]="trips" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType" [selected]="selectedTrip" (select)="onSelected($event)" [limit]="50"
+          >
+            <ngx-datatable-column name="Linie">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.route.line.number }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Kurs">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.courseNumber }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Route">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.route.number }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Abfahrt">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row.stopTimes[0]?.arrivalTime | dayTime }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Ankunft">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row.stopTimes[row.stopTimes.length - 1]?.arrivalTime | dayTime }}
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+</form>
+
+</div>

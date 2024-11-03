@@ -1,22 +1,65 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-  <a class="navbar-brand" routerLink="/">Tram Routes</a>
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/lines">Lines</a>
+<main>
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px; min-height: 100vh;">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+    <span class="fs-4">IFES X</span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li>
+      <a class="nav-link text-white"  routerLink="/calendar" routerLinkActive="active">
+        <fa-icon [icon]="faCalendar"></fa-icon>
+        Firmenkalender
+      </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/stops">Stops</a>
+    <li>
+      <a class="nav-link text-white"  routerLink="/lines" routerLinkActive="active">
+        <fa-icon [icon]="faRoute"></fa-icon>
+        Linien
+      </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/destinations">Destinations</a>
+    <li>
+      <a class="nav-link text-white"  routerLink="/stops" routerLinkActive="active">
+        <fa-icon [icon]="faCircleH"></fa-icon>
+        Haltestellen
+      </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/lines">Timetable</a>
+    <li>
+      <a class="nav-link text-white"  routerLink="/destinations" routerLinkActive="active">
+        <fa-icon [icon]="faLocationCrosshairs"></fa-icon>
+        Ziele
+      </a>
     </li>
-    <a class="btn btn-warning" routerLink="/import">Import</a>
+    <li>
+      <a class="nav-link text-white"  routerLink="/announcements" routerLinkActive="active">
+        <fa-icon [icon]="faVolumeHigh"></fa-icon>
+        Ansagen
+      </a>
+    </li>
+    <li>
+      <a class="nav-link text-white"  routerLink="/specialCharacters" routerLinkActive="active">
+        <strong>&nbsp;E&nbsp;</strong>
+        Sonderzeichen
+      </a>
+    </li>
+    <li>
+      <a class="nav-link text-white"  routerLink="/network" routerLinkActive="active">
+        <fa-icon [icon]="faMap"></fa-icon>
+        Netzeditor
+      </a>
+    </li>
+    <li>
+      <a class="nav-link text-white"  routerLink="/schedule" routerLinkActive="active">
+        <fa-icon [icon]="faTableList"></fa-icon>
+        Fahrplan
+      </a>
+    </li>
   </ul>
-</nav>
+  <hr>
 
-<div class="container mt-3">
+</div>
+
+<div class="d-flex flex-fill flex-grow-1 row content-column">
   <router-outlet></router-outlet>
 </div>
+</main>

@@ -24,8 +24,8 @@ export class DestinationService {
     return this.http.post<Destination>(this.apiUrl, destination);
   }
 
-  updateDestination(id: number, destination: Destination): Observable<Destination> {
-    const url = `${this.apiUrl}/${id}`;
+  updateDestination(destination: Destination): Observable<Destination> {
+    const url = `${this.apiUrl}/${destination.id}`;
     return this.http.put<Destination>(url, destination);
   }
 

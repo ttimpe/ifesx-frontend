@@ -1,0 +1,17 @@
+<app-titlebar [title]="'Netzeditor'" [canGoBack]="false"></app-titlebar>
+<div id="map"></div>
+<div class="stop-distance-editor panel panel-info" *ngIf="selectedOriginStop">
+  <div class="panel-heading">
+    <h3 class="panel-title">Strecke messen</h3>
+    <button class="btn btn-danger" (click)="clearSelection()">x</button>
+  </div>
+  <div class="panel-body">
+    <span><strong>Von Haltestelle:</strong> {{ selectedOriginStop?.name }} <small>({{ selectedOriginStop?.id }})</small></span><br>
+    <span><strong>Nach Haltestelle:</strong> {{ selectedDestinationStop?.name }} <small>({{selectedDestinationStop?.id}})</small></span><br>
+    <span><strong>Wegstrecke (in m):</strong> {{ distance }}</span><br>
+    <span><strong>Fahrtzeit (in Sek):</strong><input type="number" [(ngModel)]="time" [ngModelOptions]="{standalone: true}"></span>
+    <br>
+    <button class="btn btn-info" (click)="getDistanceBetweenStops()">Strecke aus EFA laden</button>
+    <button class="btn btn-primary" [disabled]="selectedDestinationStop == undefined || selectedOriginStop == undefined" (click)="saveDistance()">Setzen</button>
+  </div>
+</div>

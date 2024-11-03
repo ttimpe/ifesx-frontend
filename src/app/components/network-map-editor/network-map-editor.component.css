@@ -1,0 +1,9 @@
+.stop-distance-editor {
+  position: absolute;
+  z-index:999;
+  background: white;
+  border: 1px solid black;
+  right: 1vw;
+  top: 1vw;
+  width: 20em;
+}

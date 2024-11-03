@@ -1,0 +1,21 @@
+.container {
+  max-width: 100%; /* Ensures full-width container */
+}
+
+.calendar-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.day {
+  min-width: 14.28%; /* Each day takes 1/7th of the row */
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+}
+
+h4 {
+  margin-top: 20px;
+}
