@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { Tagtyp } from 'src/app/models/tagtyp.model';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Tagesart } from 'src/app/models/tagesart.model';
 import { SelectionType } from '@swimlane/ngx-datatable';
 import { DatePipe } from '@angular/common';
+import { Modal } from 'bootstrap';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-calender-overview',
@@ -10,19 +12,25 @@ import { DatePipe } from '@angular/common';
   providers: [ DatePipe ]
 })
 export class CalenderOverviewComponent {
-  daytypes: Tagtyp[] = []
-  selectedDayType: Tagtyp[] = []
+  daytypes: Tagesart[] = []
+  @ViewChild('editTagesartModal') editTagesartModal!: ElementRef;
+
+
+
+  selectedDayType: Tagesart[] = []
   selectionType: SelectionType = SelectionType.single
 
   _beginDate: Date = new Date()
   _endDate: Date = new Date()
 
 
+  editDaytypeModal: Modal | undefined
+
   constructor(private datePipe: DatePipe) {
 
   }
   get beginDate(): string {
-    return this.datePipe.transform(this._beginDate, 'dd-MM-yyyy') || "";
+    return this.datePipe.transform(this._beginDate, 'yyyy-MM-dd') || "";
   }
 
   set beginDate(dateString: string) {
@@ -30,7 +38,7 @@ export class CalenderOverviewComponent {
   }
 
   get endDate(): string  {
-    return this.datePipe.transform(this._endDate, 'dd-MM-yyyy') || "";
+    return this.datePipe.transform(this._endDate, 'yyyy-MM-dd') || "";
   }
 
   set endDate(dateString: string) {
@@ -42,7 +50,8 @@ export class CalenderOverviewComponent {
     this.selectedDayType = selected;
   }
   addDaytype() {
-
+    this.editDaytypeModal = new bootstrap.Modal(this.editTagesartModal.nativeElement, {});
+    this.editDaytypeModal.show();
   }
   editDaytype() {
 

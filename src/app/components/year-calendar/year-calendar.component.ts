@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { formatDate } from '@angular/common';
+import { Betriebstag } from 'src/app/models/betriebstag.model';
 
 @Component({
   selector: 'app-year-calendar',
@@ -9,6 +10,9 @@ import { formatDate } from '@angular/common';
 export class YearCalendarComponent {
   @Input() beginDate: Date = new Date()
   @Input() endDate: Date = new Date()
+  @Input() betriebstage: Betriebstag[] = [];
+
+
   calendar: any[] = [];
 
 
@@ -19,7 +23,7 @@ export class YearCalendarComponent {
   }
   // Rebuild the calendar when inputs change
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['beginDate'] || changes['endDate']) {
+    if (changes['beginDate'] || changes['endDate'] || changes['betriebstage']) {
       this.generateCalendar();
     }
   }
@@ -36,7 +40,6 @@ export class YearCalendarComponent {
       currentDate.setMonth(currentDate.getMonth() + 1);
     }
   }
-
   generateMonth(date: Date) {
     const month = [];
     const year = date.getFullYear();
@@ -48,12 +51,31 @@ export class YearCalendarComponent {
     let current = new Date(startOfWeek);
 
     while (current <= lastDayOfMonth || current.getDay() !== 1) {
-      month.push(new Date(current));
+      const isCurrentMonth = current.getMonth() === monthIndex;
+      const betriebstag = this.findBetriebstag(current);
+      const isOutOfRange = current < this.beginDate || current > this.endDate;
+
+      month.push({
+        date: new Date(current),
+        isCurrentMonth,
+        isOutOfRange,
+        specialClass: betriebstag ? `special-${betriebstag.tagesart_nr}` : null
+      });
       current.setDate(current.getDate() + 1);
     }
     return { month: formatDate(firstDayOfMonth, 'MMMM yyyy', 'de'), days: month };
   }
+  findBetriebstag(date: Date): Betriebstag | undefined {
+    const formattedDate = this.formatDateToYYYYMMDD(date);
+    return this.betriebstage.find(betriebstag => betriebstag.betriebstag === formattedDate);
+  }
 
+  formatDateToYYYYMMDD(date: Date): number {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return parseInt(`${year}${month}${day}`, 10);
+  }
   getMonday(d: Date) {
     const date = new Date(d);
     const day = date.getDay();

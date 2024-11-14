@@ -15,14 +15,14 @@
   </div>
   <div class="daytype-list col-sm-6">
     <div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-      <span class="fs-6 fw-semibold">Tagtypen</span>
+      <span class="fs-6 fw-semibold">Tagesarten</span>
       <div>
         <button class="btn btn-success mx-2" type="button" (click)="addDaytype()">+</button>
         <button class="btn btn-warning mx-2" type="button" (click)="editDaytype()" [disabled]="selectedDayType.length == 0">Bearbeiten</button>
         <button class="btn btn-danger mx-2" type="button" [disabled]="selectedDayType.length == 0" (click)="deleteDaytype()">Löschen</button>
       </div>
       </div>
-
+<app-tagesart-modal></app-tagesart-modal>
     <ngx-datatable #daytypeList class="bootstrap container striped"[rows]="daytypes" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType" [selected]="selectedDayType" (select)="onSelected($event)" [limit]="50"
 >
   <ngx-datatable-column name="Nr.">

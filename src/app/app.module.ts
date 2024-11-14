@@ -37,6 +37,9 @@ import { OperatingDayTimePickerComponent } from './components/operating-day-time
 import { DayTimePipe } from './pipes/day-time.pipe';
 import { CalenderOverviewComponent } from './components/calender-overview/calender-overview.component';
 import { YearCalendarComponent } from './components/year-calendar/year-calendar.component';
+import { BetriebstagModalComponent } from './components/betriebstag-modal/betriebstag-modal.component';
+import { TagesartModalComponent } from './components/tagesart-modal/tagesart-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 registerLocaleData(localeDe, 'de');
 
@@ -67,7 +70,9 @@ registerLocaleData(localeDe, 'de');
     OperatingDayTimePickerComponent,
     DayTimePipe,
     CalenderOverviewComponent,
-    YearCalendarComponent
+    YearCalendarComponent,
+    BetriebstagModalComponent,
+    TagesartModalComponent
     ],
   imports: [
     BrowserModule,

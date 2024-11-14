@@ -9,7 +9,7 @@
 
 .day {
   min-width: 14.28%; /* Each day takes 1/7th of the row */
-  height: 50px;
+  height: 2.2em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,4 +18,11 @@
 
 h4 {
   margin-top: 20px;
+}
+.outside-month {
+  color: #ddd;
+}
+.out-of-range {
+  color: #ddd;
+  text-decoration: line-through;
 }
