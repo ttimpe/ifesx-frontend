@@ -10,6 +10,6 @@ export class TagesartModalComponent {
   @Input() tagesart!: Tagesart
 
   saveTagesart() {
-
+    console.log(this.tagesart)
   }
 }

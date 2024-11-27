@@ -17,13 +17,12 @@
     <div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
       <span class="fs-6 fw-semibold">Tagesarten</span>
       <div>
-        <button class="btn btn-success mx-2" type="button" (click)="addDaytype()">+</button>
-        <button class="btn btn-warning mx-2" type="button" (click)="editDaytype()" [disabled]="selectedDayType.length == 0">Bearbeiten</button>
-        <button class="btn btn-danger mx-2" type="button" [disabled]="selectedDayType.length == 0" (click)="deleteDaytype()">Löschen</button>
+        <button class="btn btn-success mx-2" type="button" (click)="openModal(tagesartModal)">+</button>
+        <button class="btn btn-warning mx-2" type="button" (click)="editDaytype()" [disabled]="selectedDayType === undefined">Bearbeiten</button>
+        <button class="btn btn-danger mx-2" type="button" [disabled]="selectedDayType === undefined" (click)="deleteDaytype()">Löschen</button>
       </div>
       </div>
-<app-tagesart-modal></app-tagesart-modal>
-    <ngx-datatable #daytypeList class="bootstrap container striped"[rows]="daytypes" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType" [selected]="selectedDayType" (select)="onSelected($event)" [limit]="50"
+    <ngx-datatable #daytypeList class="bootstrap container striped" [rows]="daytypes" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType"  (select)="onSelected($event)" [limit]="50"
 >
   <ngx-datatable-column name="Nr.">
     <ng-template let-row="row" ngx-datatable-cell-template>
@@ -40,4 +39,40 @@
 <app-year-calendar [beginDate]="_beginDate" [endDate]="_endDate"></app-year-calendar>
 </form>
 </div>
+
+<ng-template #tagesartModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Tagesart</h4>
+    <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+
+        <form>
+          <div class="form-group row">
+              <label for="number" class="col-form-label col-sm-4">Nummer:</label>
+              <div class="col-sm-8">
+                <input type="number" id="number"  name="number" required class="form-control" [(ngModel)]="selectedDayType.tagesart_nr">
+              </div>
+          </div>
+          <div class="form-group row">
+                <label for="name" class="col-form-label col-sm-4">Beschreibung:</label>
+                <div class="col-sm-8">
+                  <input type="text" id="beschreibung" name="beschreibung" class="form-control">
+                </div>
+            </div>
+            </form>
+            </div>
+
+              <!-- Add other form fields as needed -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="saveTagesart()">Speichern</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+  </div>
+</ng-template>
+
+
+
 

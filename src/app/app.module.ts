@@ -2,7 +2,7 @@
 import './extensions/Time'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
@@ -44,75 +44,68 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 registerLocaleData(localeDe, 'de');
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LineListComponent,
-    RouteListComponent,
-    RouteDetailComponent,
-    StopDetailComponent,
-    GtfsImportComponent,
-    StopListComponent,
-    DestinationListComponent,
-    DestinationDetailComponent,
-    LineDetailComponent,
-    StopSearchFieldComponent,
-    AutoRouteComponent,
-    TitlebarComponent,
-    AnnouncementListComponent,
-    AnnouncementDetailComponent,
-    SpecialCharacterDetailComponent,
-    SpecialCharacterListComponent,
-    ScheduleListComponent,
-    ScheduleDetailComponent,
-    TripEditorComponent,
-    NetworkMapEditorComponent,
-    OperatingDayTimePickerComponent,
-    DayTimePipe,
-    CalenderOverviewComponent,
-    YearCalendarComponent,
-    BetriebstagModalComponent,
-    TagesartModalComponent
+@NgModule({ declarations: [
+        AppComponent,
+        LineListComponent,
+        RouteListComponent,
+        RouteDetailComponent,
+        StopDetailComponent,
+        GtfsImportComponent,
+        StopListComponent,
+        DestinationListComponent,
+        DestinationDetailComponent,
+        LineDetailComponent,
+        StopSearchFieldComponent,
+        AutoRouteComponent,
+        TitlebarComponent,
+        AnnouncementListComponent,
+        AnnouncementDetailComponent,
+        SpecialCharacterDetailComponent,
+        SpecialCharacterListComponent,
+        ScheduleListComponent,
+        ScheduleDetailComponent,
+        TripEditorComponent,
+        NetworkMapEditorComponent,
+        OperatingDayTimePickerComponent,
+        DayTimePipe,
+        CalenderOverviewComponent,
+        YearCalendarComponent,
+        BetriebstagModalComponent,
+        TagesartModalComponent
     ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    NgxDatatableModule,
-    StopPlatformNumberPipe,
-    StopTypePipe,
-    RouterModule.forRoot([
-      { path: 'lines', component: LineListComponent },
-      { path: 'lines/:lineId', component: LineDetailComponent },
-      { path: 'lines/:lineId/routes/:routeId', component: RouteDetailComponent },
-      { path: 'lines/:lineId/routes/add', component: RouteDetailComponent },
-      { path: 'stops', component: StopListComponent},
-      { path: 'stops/:stopId', component: StopDetailComponent},
-      { path: 'stops/add', component: StopDetailComponent},
-      { path: 'destinations', component: DestinationListComponent},
-      { path: 'destinations/:id', component: DestinationDetailComponent},
-      { path: 'destinations/add', component: DestinationListComponent},
-      { path: 'announcements', component: AnnouncementListComponent},
-      { path: 'announcements/:id', component: AnnouncementDetailComponent},
-      { path: 'announcements/add', component: AnnouncementDetailComponent},
-      { path: 'specialCharacters', component: SpecialCharacterListComponent},
-      { path: 'specialCharacters/:id', component: SpecialCharacterDetailComponent},
-      { path: 'specialCharacters/add', component: SpecialCharacterDetailComponent},
-      { path: 'schedule', component: ScheduleListComponent},
-      { path: 'schedule/:id', component: ScheduleDetailComponent},
-      { path: 'schedule/add', component: ScheduleDetailComponent},
-      { path: 'schedule/:scheduleId/trips/:tripId', component: TripEditorComponent },
-      { path: '', redirectTo: '/lines', pathMatch: 'full' },
-      { path: 'import', component: GtfsImportComponent},
-      { path: 'network', component: NetworkMapEditorComponent },
-      { path: 'calendar', component: CalenderOverviewComponent }
-    ]),
-    FontAwesomeModule
-  ],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'de' }
-
-  ],
-  bootstrap: [AppComponent]
-})
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        FormsModule,
+        NgxDatatableModule,
+        StopPlatformNumberPipe,
+        StopTypePipe,
+        RouterModule.forRoot([
+            { path: 'lines', component: LineListComponent },
+            { path: 'lines/:lineId', component: LineDetailComponent },
+            { path: 'lines/:lineId/routes/:routeId', component: RouteDetailComponent },
+            { path: 'lines/:lineId/routes/add', component: RouteDetailComponent },
+            { path: 'stops', component: StopListComponent },
+            { path: 'stops/:stopId', component: StopDetailComponent },
+            { path: 'stops/add', component: StopDetailComponent },
+            { path: 'destinations', component: DestinationListComponent },
+            { path: 'destinations/:id', component: DestinationDetailComponent },
+            { path: 'destinations/add', component: DestinationListComponent },
+            { path: 'announcements', component: AnnouncementListComponent },
+            { path: 'announcements/:id', component: AnnouncementDetailComponent },
+            { path: 'announcements/add', component: AnnouncementDetailComponent },
+            { path: 'specialCharacters', component: SpecialCharacterListComponent },
+            { path: 'specialCharacters/:id', component: SpecialCharacterDetailComponent },
+            { path: 'specialCharacters/add', component: SpecialCharacterDetailComponent },
+            { path: 'schedule', component: ScheduleListComponent },
+            { path: 'schedule/:id', component: ScheduleDetailComponent },
+            { path: 'schedule/add', component: ScheduleDetailComponent },
+            { path: 'schedule/:scheduleId/trips/:tripId', component: TripEditorComponent },
+            { path: '', redirectTo: '/lines', pathMatch: 'full' },
+            { path: 'import', component: GtfsImportComponent },
+            { path: 'network', component: NetworkMapEditorComponent },
+            { path: 'calendar', component: CalenderOverviewComponent }
+        ]),
+        FontAwesomeModule], providers: [
+        { provide: LOCALE_ID, useValue: 'de' },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }

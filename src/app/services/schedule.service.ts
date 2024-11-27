@@ -3,6 +3,7 @@ import { VehicleSchedule } from '../models/vehicle-schedule.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Trip } from '../models/trip.model';
+import { Tagesart } from '../models/tagesart.model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,6 @@ export class ScheduleService {
     const url = `${this.apiUrl}/${schedule.id}`;
     return this.http.delete<VehicleSchedule>(url);
   }
-
 
 
 }
