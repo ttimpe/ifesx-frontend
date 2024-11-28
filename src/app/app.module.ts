@@ -35,7 +35,7 @@ import { TripEditorComponent } from './components/trip-editor/trip-editor.compon
 import { NetworkMapEditorComponent } from './components/network-map-editor/network-map-editor.component';
 import { OperatingDayTimePickerComponent } from './components/operating-day-time-picker/operating-day-time-picker.component';
 import { DayTimePipe } from './pipes/day-time.pipe';
-import { CalenderOverviewComponent } from './components/calender-overview/calender-overview.component';
+import { CalendarOverviewComponent } from './components/calendar-overview/calendar-overview.component';
 import { YearCalendarComponent } from './components/year-calendar/year-calendar.component';
 import { BetriebstagModalComponent } from './components/betriebstag-modal/betriebstag-modal.component';
 import { TagesartModalComponent } from './components/tagesart-modal/tagesart-modal.component';
@@ -68,7 +68,7 @@ registerLocaleData(localeDe, 'de');
         NetworkMapEditorComponent,
         OperatingDayTimePickerComponent,
         DayTimePipe,
-        CalenderOverviewComponent,
+        CalendarOverviewComponent,
         YearCalendarComponent,
         BetriebstagModalComponent,
         TagesartModalComponent
@@ -102,7 +102,7 @@ registerLocaleData(localeDe, 'de');
             { path: '', redirectTo: '/lines', pathMatch: 'full' },
             { path: 'import', component: GtfsImportComponent },
             { path: 'network', component: NetworkMapEditorComponent },
-            { path: 'calendar', component: CalenderOverviewComponent }
+            { path: 'calendar', component: CalendarOverviewComponent }
         ]),
         FontAwesomeModule], providers: [
         { provide: LOCALE_ID, useValue: 'de' },
