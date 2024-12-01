@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Betriebstag } from '../models/betriebstag.model';
+import { BasisVersion } from '../models/basis-version.model';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,7 @@ export class CalendarService {
   }
 
   deleteBetriebstag(betriebstag: Betriebstag): Observable<boolean>{
-    return this.http.delete<boolean>(this.apiUrl + `/betriebstage/${betriebstag.betriebstag}`)
+    return this.http.delete<boolean>(this.apiUrl + `/betriebstage/${betriebstag.id}`)
 
   }
   updateBetriebstag(betriebstag: Betriebstag): Observable<Betriebstag> {
@@ -50,6 +51,11 @@ export class CalendarService {
 
 
   // VDV DV Versionen
+
+  getVersionen(): Observable<BasisVersion[]> {
+    const url = 'http://localhost:3000/basis/versionen';
+    return this.http.get<BasisVersion[]>(url);
+  }
 
   createVersion() {
 

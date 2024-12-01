@@ -77,8 +77,7 @@ export class CalendarOverviewComponent implements OnInit {
   // Save the day type (create or update)
   saveTagesart(): void {
     if (this.selectedDayType) {
-      console.log(this.selectedDayType.tagesart_nr)
-      const isNew = this.selectedDayType.tagesart_nr == null;
+      const isNew = this.selectedDayType.id == null;
 
       if (isNew) {
         this.calendarService.createTagesart(this.selectedDayType).subscribe({
