@@ -8,21 +8,40 @@
 
 <!-- DV Auswahl -->
  <h5>Aktuelle Datenversorgung:</h5>
-  <ul class="list-group">
-    <li class="list-group-item d-flex justify-content-between align-items-start list-group-item-dark" *ngFor="let version of versionen">
-      <div class="ms-2 me-auto">
-        <div class="fw-bold">DV {{ version.id }}</div>
-        15.05.2021
-        </div>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="fw-bold">DV 2</div>
-        01.08.2021
-      </div>
-    </li>
-    
-  </ul>
+
+    <div class="dropdown mt-3">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        {{ selectedVersion?.BASIS_VERSION_TEXT }}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <!-- Dropdown Items -->
+        <li *ngFor="let version of versionen" (click)="selectVersion(version)">
+          <button
+            class="dropdown-item d-flex justify-content-between align-items-center"
+            
+          >
+            {{ version.BASIS_VERSION_TEXT }}
+            <span *ngIf="version.id === selectedDVID" class="text-success">
+              &#10003;
+            </span>
+          </button>
+        </li>
+        <li>
+          <hr class="dropdown-divider" />
+        </li>
+        <!-- Create New Option -->
+        <li>
+          <a class="dropdown-item text-primary" href="#" (click)="createVersion()">Hinzufügen</a>
+        </li>
+      </ul>
+    </div>
+
 
 
 
