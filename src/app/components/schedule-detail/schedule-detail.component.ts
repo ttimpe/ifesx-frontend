@@ -1,15 +1,22 @@
 import { ScheduleService } from './../../services/schedule.service';
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { SelectionType } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
 import { Trip } from 'src/app/models/trip.model';
 import { VehicleSchedule } from 'src/app/models/vehicle-schedule.model';
 import { Modal } from 'bootstrap'
 import { ActivatedRoute, Router } from '@angular/router';
 import { TripEditorComponent } from '../trip-editor/trip-editor.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
+import { DayTimePipe } from 'src/app/pipes/day-time.pipe';
 @Component({
   selector: 'app-schedule-detail',
   templateUrl: './schedule-detail.component.html',
-  styleUrls: ['./schedule-detail.component.css']
+  styleUrls: ['./schedule-detail.component.css'],
+  standalone: true,
+  imports: [CommonModule, NgxDatatableModule, FormsModule, TitlebarComponent, DayTimePipe]
+
 })
 export class ScheduleDetailComponent {
 

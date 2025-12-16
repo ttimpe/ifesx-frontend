@@ -1,11 +1,13 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { formatDate } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Betriebstag } from 'src/app/models/betriebstag.model';
 
 @Component({
   selector: 'app-year-calendar',
   templateUrl: './year-calendar.component.html',
-  styleUrls: ['./year-calendar.component.css']
+  styleUrls: ['./year-calendar.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class YearCalendarComponent {
   @Input() beginDate: Date = new Date()

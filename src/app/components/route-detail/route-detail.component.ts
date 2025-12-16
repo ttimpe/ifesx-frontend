@@ -4,7 +4,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { RouteService } from '../../services/route.service';
-import {DatatableComponent, SelectionType} from '@swimlane/ngx-datatable';
+import {DatatableComponent, NgxDatatableModule, SelectionType} from '@swimlane/ngx-datatable';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faTrash, faArrowUp, faArrowDown, faL } from '@fortawesome/free-solid-svg-icons';
 import { Route } from '../../models/route.model';
@@ -13,15 +13,21 @@ import { Stop } from '../../models/stop.model';
 import { DestinationService } from '../../services/destination.service';
 import { TripRequestResponse } from 'src/app/models/trip-request-response.model';
 import { map } from 'rxjs/operators';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { SpecialCharacter } from 'src/app/models/special-character.model';
 import { SpecialCharacterService } from 'src/app/services/special-character.service';
 import { AnnouncementService } from 'src/app/services/announcement.service';
 import { Announcement } from 'src/app/models/announcement.model';
+import { FormsModule } from '@angular/forms';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
+import { AutoRouteComponent } from '../auto-route/auto-route.component';
+import { StopSearchFieldComponent } from '../stop-search-field/stop-search-field.component';
 @Component({
   selector: 'app-route-detail',
   templateUrl: './route-detail.component.html',
-  styleUrls: ['./route-detail.component.css']
+  styleUrls: ['./route-detail.component.css'],
+  standalone: true,
+  imports: [CommonModule, FontAwesomeModule, NgxDatatableModule, FormsModule, TitlebarComponent, StopSearchFieldComponent, AutoRouteComponent]
 })
 export class RouteDetailComponent implements AfterViewInit {
   faArrowDown = faArrowDown

@@ -1,12 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SpecialCharacter } from 'src/app/models/special-character.model';
 import { SpecialCharacterService } from 'src/app/services/special-character.service';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
 
 @Component({
   selector: 'app-special-character-detail',
   templateUrl: './special-character-detail.component.html',
-  styleUrls: ['./special-character-detail.component.css']
+  styleUrls: ['./special-character-detail.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule, TitlebarComponent]
 })
 export class SpecialCharacterDetailComponent {
   specialCharacter: SpecialCharacter = new SpecialCharacter()

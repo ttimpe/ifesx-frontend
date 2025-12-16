@@ -1,10 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-gtfs-import',
   templateUrl: './gtfs-import.component.html',
-  styleUrls: ['./gtfs-import.component.css']
+  styleUrls: ['./gtfs-import.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class GtfsImportComponent {
   @Output() fileUploaded = new EventEmitter<File>();

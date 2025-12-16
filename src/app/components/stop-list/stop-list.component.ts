@@ -1,13 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
+import { DatatableComponent, NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
 import { Stop } from '../../models/stop.model';
 import { Router } from '@angular/router';
 import { faTrash, faPlus, faPenSquare } from '@fortawesome/free-solid-svg-icons'
+import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'app-stop-list',
   templateUrl: './stop-list.component.html',
-  styleUrls: ['./stop-list.component.css']
+  styleUrls: ['./stop-list.component.css'],
+  standalone: true,
+  imports: [CommonModule, NgxDatatableModule, FontAwesomeModule]
 })
 export class StopListComponent implements OnInit {
   stops: Stop[] = []

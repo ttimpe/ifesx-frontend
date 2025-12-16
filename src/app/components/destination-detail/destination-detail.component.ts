@@ -4,12 +4,19 @@ import { ActivatedRoute } from '@angular/router';
 import { DestinationService } from '../../services/destination.service';
 import { Destination } from '../../models/destination.model';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
 
 @Component({
   selector: 'app-destination-detail',
   templateUrl: './destination-detail.component.html',
   styleUrls: ['./destination-detail.component.css'],
+  standalone: true,
+  imports: [CommonModule, FontAwesomeModule, FormsModule, TitlebarComponent]
 })
+
 export class DestinationDetailComponent implements OnInit {
   destination: Destination | undefined;
   faChevronLeft = faChevronLeft

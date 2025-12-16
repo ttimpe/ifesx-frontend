@@ -1,9 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-operating-day-time-picker',
   templateUrl: './operating-day-time-picker.component.html',
-  styleUrls: ['./operating-day-time-picker.component.css']
+  styleUrls: ['./operating-day-time-picker.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class OperatingDayTimePickerComponent implements OnChanges {
 

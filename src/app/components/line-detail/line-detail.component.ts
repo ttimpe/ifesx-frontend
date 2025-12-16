@@ -3,14 +3,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LineService } from '../../services/line.service';
 import { Line } from '../../models/line.model';
-import { SelectionType } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
 import { Route } from '../../models/route.model';
 import { RouteService } from '../../services/route.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
 
 @Component({
   selector: 'app-line-detail',
   templateUrl: './line-detail.component.html',
   styleUrls: ['./line-detail.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule, NgxDatatableModule, TitlebarComponent]
 })
 export class LineDetailComponent implements OnInit {
   line?: Line

@@ -1,11 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Stop } from 'src/app/models/stop.model';
 import { StopService } from 'src/app/services/stop.service';
 
 @Component({
   selector: 'app-stop-search-field',
   templateUrl: './stop-search-field.component.html',
-  styleUrls: ['./stop-search-field.component.css']
+  styleUrls: ['./stop-search-field.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class StopSearchFieldComponent {
   stopSearchTerm: string = ''; // Search term for stops

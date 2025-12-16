@@ -2,16 +2,21 @@
 
 import { Component, OnInit } from '@angular/core';
 import { LineService } from '../../services/line.service';
-import { SelectionType } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
 import { Destination } from '../../models/destination.model';
 import { Line } from '../../models/line.model';
 import { Router } from '@angular/router';
 import { faPenSquare, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
 
 @Component({
   selector: 'app-line-list',
   templateUrl: './line-list.component.html',
-  styleUrls: ['./line-list.component.css']
+  styleUrls: ['./line-list.component.css'],
+  standalone: true,
+  imports: [CommonModule, NgxDatatableModule, FontAwesomeModule, TitlebarComponent]
 })
 export class LineListComponent implements OnInit {
   lines: Line[] = [];

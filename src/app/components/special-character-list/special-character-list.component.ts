@@ -2,13 +2,19 @@ import { Router } from '@angular/router';
 import { SpecialCharacter } from './../../models/special-character.model';
 import { Component } from '@angular/core';
 import { faPenSquare, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { SelectionType } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
 import { SpecialCharacterService } from 'src/app/services/special-character.service';
+import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-special-character-list',
   templateUrl: './special-character-list.component.html',
-  styleUrls: ['./special-character-list.component.css']
+  styleUrls: ['./special-character-list.component.css'],
+  standalone: true,
+  imports: [CommonModule, NgxDatatableModule, FontAwesomeModule, TitlebarComponent, FormsModule]
 })
 export class SpecialCharacterListComponent {
   specialCharacters: SpecialCharacter[] = [];

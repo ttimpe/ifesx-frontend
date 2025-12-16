@@ -4,15 +4,21 @@ import { LineService } from './../../services/line.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Trip } from 'src/app/models/trip.model';
 import { Route } from 'src/app/models/route.model';
-import { SelectionType } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
 import { StopTime } from 'src/app/models/stop-time.model';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { OperatingDayTimePickerComponent } from '../operating-day-time-picker/operating-day-time-picker.component';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-trip-editor',
   templateUrl: './trip-editor.component.html',
-  styleUrls: ['./trip-editor.component.css']
+  styleUrls: ['./trip-editor.component.css'],
+  standalone: true,
+  imports: [CommonModule, NgxDatatableModule, OperatingDayTimePickerComponent, TitlebarComponent, FormsModule]
 })
 export class TripEditorComponent {
   lines: Line[] = []

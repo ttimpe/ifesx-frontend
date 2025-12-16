@@ -6,7 +6,7 @@
     <button class="btn btn-danger" (click)="clearSelection()">x</button>
   </div>
   <div class="panel-body">
-    <span><strong>Von Haltestelle:</strong> {{ selectedOriginStop?.name }} <small>({{ selectedOriginStop?.id }})</small></span><br>
+    <span><strong>Von Haltestelle:</strong> {{ selectedOriginStop.name }} <small>({{ selectedOriginStop.id }})</small></span><br>
     <span><strong>Nach Haltestelle:</strong> {{ selectedDestinationStop?.name }} <small>({{selectedDestinationStop?.id}})</small></span><br>
     <span><strong>Wegstrecke (in m):</strong> {{ distance }}</span><br>
     <span><strong>Fahrtzeit (in Sek):</strong><input type="number" [(ngModel)]="time" [ngModelOptions]="{standalone: true}"></span>

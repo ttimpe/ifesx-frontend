@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CalendarService } from '../../services/calendar.service';
 import { Tagesart } from 'src/app/models/tagesart.model';
-import { SelectionType } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
+import { FormsModule } from '@angular/forms';
+import { YearCalendarComponent } from '../year-calendar/year-calendar.component';
+import { Title } from '@angular/platform-browser';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
 
 @Component({
   selector: 'app-calendar-overview',
   templateUrl: './calendar-overview.component.html',
   styleUrls: ['./calendar-overview.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe],
+  standalone: true,
+  imports: [CommonModule, FormsModule, YearCalendarComponent, NgxDatatableModule, TitlebarComponent]
+
 })
 export class CalendarOverviewComponent implements OnInit {
   daytypes: Tagesart[] = []; // List of day types

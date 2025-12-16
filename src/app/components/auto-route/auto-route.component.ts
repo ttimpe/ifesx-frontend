@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { StopSearchFieldComponent } from './../stop-search-field/stop-search-field.component';
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output, SimpleChange, ViewChild } from '@angular/core';
@@ -10,7 +11,9 @@ import { StopService } from 'src/app/services/stop.service';
 @Component({
   selector: 'app-auto-route',
   templateUrl: './auto-route.component.html',
-  styleUrls: ['./auto-route.component.css']
+  styleUrls: ['./auto-route.component.css'],
+  standalone: true,
+  imports: [CommonModule, StopSearchFieldComponent]
 })
 export class AutoRouteComponent {
   @Output() onRouteFound = new EventEmitter<RouteStop[]>()

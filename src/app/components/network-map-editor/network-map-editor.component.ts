@@ -1,14 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import * as L from 'leaflet';
 import { StopDistance } from 'src/app/models/stop-distance.model';
 import { Stop } from 'src/app/models/stop.model';
 import { TripRequestResponse } from 'src/app/models/trip-request-response.model';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
 
 @Component({
   selector: 'app-network-map-editor',
   templateUrl: './network-map-editor.component.html',
-  styleUrls: ['./network-map-editor.component.css']
+  styleUrls: ['./network-map-editor.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule, TitlebarComponent]
 })
 
 

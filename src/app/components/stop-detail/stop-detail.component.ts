@@ -3,11 +3,16 @@ import { Component, Input } from '@angular/core';
 import { Stop } from '../../models/stop.model';
 import { StopService } from '../../services/stop.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
 
 @Component({
   selector: 'app-stop-detail',
   templateUrl: './stop-detail.component.html',
-  styleUrls: ['./stop-detail.component.css']
+  styleUrls: ['./stop-detail.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule, TitlebarComponent]
 })
 export class StopDetailComponent {
   stop?: Stop

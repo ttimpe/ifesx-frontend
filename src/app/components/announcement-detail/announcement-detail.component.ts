@@ -1,15 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SelectionType } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
 import { Announcement } from 'src/app/models/announcement.model';
 import { StopInformation } from 'src/app/models/stop-information.model';
 import { Stop } from 'src/app/models/stop.model';
 import { AnnouncementService } from 'src/app/services/announcement.service';
+import { StopSearchFieldComponent } from '../stop-search-field/stop-search-field.component';
+import { FormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { TitlebarComponent } from '../titlebar/titlebar.component';
 
 @Component({
   selector: 'app-announcement-detail',
   templateUrl: './announcement-detail.component.html',
-  styleUrls: ['./announcement-detail.component.css']
+  styleUrls: ['./announcement-detail.component.css'],
+  standalone: true,
+  imports: [CommonModule, NgxDatatableModule, StopSearchFieldComponent, FormsModule, TitlebarComponent]
 })
 export class AnnouncementDetailComponent {
   announcement: Announcement = new Announcement()
