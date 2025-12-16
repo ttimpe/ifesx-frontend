@@ -45,7 +45,9 @@ registerLocaleData(localeDe, 'de');
 
 
 @NgModule({ declarations: [
-        AppComponent,
+       StopPlatformNumberPipe,
+        StopTypePipe,
+         AppComponent,
         LineListComponent,
         RouteListComponent,
         RouteDetailComponent,
@@ -70,14 +72,12 @@ registerLocaleData(localeDe, 'de');
         DayTimePipe,
         CalendarOverviewComponent,
         YearCalendarComponent,
-        BetriebstagModalComponent,
-        TagesartModalComponent
+        BetriebstagModalComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         FormsModule,
         NgxDatatableModule,
-        StopPlatformNumberPipe,
-        StopTypePipe,
+        
         RouterModule.forRoot([
             { path: 'lines', component: LineListComponent },
             { path: 'lines/:lineId', component: LineDetailComponent },
