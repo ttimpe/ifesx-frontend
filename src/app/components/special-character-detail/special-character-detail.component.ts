@@ -1,24 +1,41 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { SpecialCharacter } from 'src/app/models/special-character.model';
-import { SpecialCharacterService } from 'src/app/services/special-character.service';
-import { TitlebarComponent } from '../titlebar/titlebar.component';
 
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { SpecialCharacter } from 'src/app/models/special-character.model';
+import { SpecialCharacterService } from '../../services/special-character.service';
+
+// PrimeNG
+import { TableModule } from 'primeng/table';
+import { Button } from 'primeng/button';
+import { InputText } from 'primeng/inputtext';
+import { InputNumber } from 'primeng/inputnumber';
+import { CardModule } from 'primeng/card';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-special-character-detail',
   templateUrl: './special-character-detail.component.html',
   styleUrls: ['./special-character-detail.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, TitlebarComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+
+    TableModule,
+    Button, // Standalone
+    InputText, // Standalone
+    InputNumber, // Standalone
+    CardModule, // Module
+    ToastModule
+  ]
 })
 export class SpecialCharacterDetailComponent {
   specialCharacter: SpecialCharacter = new SpecialCharacter()
 
-  constructor(    private route: ActivatedRoute,
-    private specialCharacterService: SpecialCharacterService) {}
+  constructor(private route: ActivatedRoute,
+    private specialCharacterService: SpecialCharacterService) { }
   ngAfterViewInit(): void {
     this.loadSpecialCharacter()
 

@@ -10,7 +10,7 @@ import { Tagesart } from '../models/tagesart.model';
 })
 export class ScheduleService {
 
-  private apiUrl = 'http://localhost:3000/schedules';
+  private apiUrl = '/api/schedules';
 
   constructor(private http: HttpClient) {}
 

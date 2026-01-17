@@ -1,76 +1,82 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { DatatableComponent, NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
-import { Stop } from '../../models/stop.model';
+import { Table, TableModule } from 'primeng/table';
+import { Button } from 'primeng/button';
+import { InputText } from 'primeng/inputtext';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { Tooltip } from 'primeng/tooltip';
 import { Router } from '@angular/router';
-import { faTrash, faPlus, faPenSquare } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPlus, faCircleH } from '@fortawesome/free-solid-svg-icons'
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { StopService } from '../../services/stop.service';
+import { CalendarService } from '../../services/calendar.service';
+
 @Component({
   selector: 'app-stop-list',
   templateUrl: './stop-list.component.html',
   styleUrls: ['./stop-list.component.css'],
   standalone: true,
-  imports: [CommonModule, NgxDatatableModule, FontAwesomeModule]
+  imports: [CommonModule, TableModule, FontAwesomeModule, Button, InputText]
 })
 export class StopListComponent implements OnInit {
-  stops: Stop[] = []
-  selectionType: SelectionType = SelectionType.single
-  selectedRow: Stop[] = []
-  temp: Stop[] = []
+  recOrts: any[] = [] // RecOrts
+  selectedStop: any | null = null;
   faTrash = faTrash
   faPlus = faPlus
-  faPenSquare = faPenSquare
+  faCircleH = faCircleH
+  selectedBasisVersion: number | undefined;
 
-  @ViewChild(DatatableComponent) table?: DatatableComponent;
+  @ViewChild('dt') dt: Table | undefined;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private stopService: StopService, private router: Router, private calendarService: CalendarService) { }
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:3000/stops').subscribe(stops => {
-      this.stops = stops;
-      this.temp = stops;
+    this.calendarService.selectedVersion$.subscribe(version => {
+      this.selectedBasisVersion = version || undefined;
+      this.loadStops();
     });
   }
-  onSelected({ selected }: any) {
-    // 'selected' array contains the selected rows
-    this.selectedRow = selected;
-  }
-  updateFilter(event: any) {
-    const val = event.target.value.toLowerCase();
-    const exactMatch = this.temp.filter(function (d) {
-      if (d.information.code && d.information.code) {
-        return d.information.code.toLowerCase().indexOf(val) !== -1 || !val;
-      }
-      return false;
+
+  loadStops() {
+    this.stopService.getAllRecOrts('', this.selectedBasisVersion).subscribe((data: any[]) => {
+      this.recOrts = data;
     });
-
-    if (exactMatch.length == 0) {
-
-    // filter our data
-    const temp = this.temp.filter(function (d) {
-      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
-    });
-
-    // update the rows
-    this.stops = temp;
-  } else {
-    this.stops = exactMatch;
   }
-    // Whenever the filter changes, always go back to the first page
-    if (this.table) {
-    this.table.offset = 0;
-    }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
+
   addStop() {
     this.router.navigate(['/stops/add'])
-
   }
-  editStop() {
-    this.router.navigate(['/stops/' + this.selectedRow[0].id])
 
+  editStop(stop: any) {
+    this.router.navigate(['/stops/' + stop.ORT_NR], {
+      queryParams: {
+        basisVersion: stop.BASIS_VERSION,
+        onrTypNr: stop.ONR_TYP_NR
+      }
+    });
   }
-  deleteStop() {
 
+  deleteStop(stop: any, event: Event) {
+    event.stopPropagation(); // Prevent row click
+
+    if (!confirm(`Haltestelle "${stop.ORT_NAME}" (${stop.ORT_NR}) wirklich löschen?`)) {
+      return;
+    }
+
+    this.stopService.deleteRecOrt(stop.ORT_NR).subscribe({
+      next: () => {
+        this.recOrts = this.recOrts.filter(s => s.ORT_NR !== stop.ORT_NR);
+        console.log('Stop deleted successfully');
+      },
+      error: (err) => {
+        console.error('Error deleting stop:', err);
+        alert('Fehler beim Löschen der Haltestelle');
+      }
+    });
   }
 }

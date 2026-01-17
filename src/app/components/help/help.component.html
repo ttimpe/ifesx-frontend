@@ -1,0 +1,587 @@
+<div class="container mx-auto p-4 max-w-[1600px] animate-fade-in pb-40">
+    <!-- Header -->
+    <div
+        class="bg-gradient-to-b from-slate-900 to-slate-800 border text-center border-slate-700 px-8 py-16 rounded-3xl shadow-2xl mb-12 flex flex-col items-center justify-center relative overflow-hidden">
+        <!-- Geometric Background Pattern -->
+        <div class="absolute inset-0 opacity-10"
+            style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;">
+        </div>
+
+        <div
+            class="relative z-10 w-24 h-24 bg-white/5 backdrop-blur-sm text-blue-400 rounded-2xl flex items-center justify-center mb-6 shadow-2xl border border-white/10 ring-1 ring-white/20">
+            <i class="pi pi-book text-5xl"></i>
+        </div>
+        <h1 class="relative z-10 text-5xl font-extrabold text-white tracking-tight mb-6">IFES X Systemreferenz</h1>
+        <p class="relative z-10 text-slate-300 text-xl max-w-4xl font-light leading-relaxed">
+            Vollständige technische Spezifikation der VDV 452 Datenschnittstelle. <br>
+            Handbuch für alle konfigurierbaren Datenobjekte, Attribute und Systemlogiken.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-10">
+        <!-- Sidebar Navigation -->
+        <div class="xl:col-span-3 hidden xl:block">
+            <div class="sticky top-6">
+                <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
+                    <div
+                        class="p-4 bg-slate-50 border-b border-slate-100 font-bold text-slate-800 flex items-center gap-2 uppercase text-xs tracking-wider">
+                        <i class="pi pi-sitemap text-slate-400"></i> Datenmodell Index
+                    </div>
+                    <nav class="max-h-[calc(100vh-150px)] overflow-y-auto custom-scrollbar p-2">
+
+                        <!-- 1. Infra -->
+                        <div class="py-2 px-3 text-[10px] font-black text-slate-400 uppercase tracking-widest mt-2">1.
+                            Infrastruktur</div>
+                        <a (click)="scrollTo('rec_ort')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-blue-500"></span> REC_ORT
+                            (Orte)
+                        </a>
+                        <a (click)="scrollTo('rec_hp')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-blue-500"></span> REC_HP
+                            (Haltepunkte)
+                        </a>
+                        <a (click)="scrollTo('rec_sel')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-blue-500"></span> REC_SEL
+                            (Relationen)
+                        </a>
+                        <a (click)="scrollTo('rec_om')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-blue-500"></span> REC_OM
+                            (Ortsmarken)
+                        </a>
+
+                        <!-- 2. Linien -->
+                        <div class="py-2 px-3 text-[10px] font-black text-slate-400 uppercase tracking-widest mt-4">2.
+                            Linienplanung</div>
+                        <a (click)="scrollTo('rec_lid')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-indigo-500"></span>
+                            REC_LID (Linien)
+                        </a>
+                        <a (click)="scrollTo('lid_verlauf')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-indigo-500"></span>
+                            LID_VERLAUF (Routen)
+                        </a>
+                        <a (click)="scrollTo('menge_fgr')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-indigo-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-indigo-500"></span>
+                            MENGE_FGR (Fahrz.Grp)
+                        </a>
+
+                        <!-- 3. Fahrplan -->
+                        <div class="py-2 px-3 text-[10px] font-black text-slate-400 uppercase tracking-widest mt-4">3.
+                            Fahrplan & Betrieb</div>
+                        <a (click)="scrollTo('rec_frt')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-emerald-500"></span>
+                            REC_FRT (Fahrten)
+                        </a>
+                        <a (click)="scrollTo('rec_umlauf')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-emerald-500"></span>
+                            REC_UMLAUF (Umläufe)
+                        </a>
+                        <a (click)="scrollTo('menge_bereich')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-emerald-500"></span>
+                            MENGE_BEREICH (Depots)
+                        </a>
+                        <a (click)="scrollTo('tagesart')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-emerald-500"></span>
+                            TAGESART & KALENDER
+                        </a>
+
+                        <!-- 4. FIS -->
+                        <div class="py-2 px-3 text-[10px] font-black text-slate-400 uppercase tracking-widest mt-4">4.
+                            Fahrgastinfo (FIS)</div>
+                        <a (click)="scrollTo('rec_znr')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-pink-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-pink-500"></span> REC_ZNR
+                            (Ziele)
+                        </a>
+                        <a (click)="scrollTo('rec_anr')"
+                            class="cursor-pointer group flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-pink-600 rounded-lg transition-all">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-pink-500"></span> REC_ANR
+                            (Ansagen)
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="xl:col-span-9 flex flex-col gap-20">
+
+            <!-- 1. INFRASTRUKTUR -->
+            <div>
+                <h2
+                    class="text-3xl font-bold text-slate-900 mb-8 pb-4 border-b-2 border-slate-900 flex items-center gap-3">
+                    <span class="bg-slate-900 text-white px-3 py-1 rounded text-lg font-mono">01</span>
+                    Netzinfrastruktur & Topologie
+                </h2>
+
+                <!-- REC_ORT -->
+                <section id="rec_ort" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="bg-blue-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-blue-200">
+                                REC_ORT</div>
+                            <h3 class="text-2xl font-bold text-slate-800">Ortsverzeichnis</h3>
+                        </div>
+                        <span
+                            class="text-xs font-mono text-slate-400 bg-slate-100 px-2 py-1 rounded border border-slate-200">VDV
+                            452 Tabelle 4.1</span>
+                    </div>
+                    <p class="text-slate-700 leading-relaxed mb-6 font-serif text-lg">
+                        Fundamentale geografische Einheit. Unterscheidet zwischen logischen Bereichen und physischen
+                        Haltepunkten.
+                    </p>
+
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ring-1 ring-slate-100">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold uppercase tracking-wider text-xs">
+                                <tr>
+                                    <th class="p-4 w-48 bg-slate-50/50">Feldname</th>
+                                    <th class="p-4 w-32 bg-slate-50/50">Datentyp</th>
+                                    <th class="p-4 bg-slate-50/50">Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-mono font-bold text-slate-700">ONR_TYP_NR</td>
+                                    <td class="p-4 font-mono text-slate-500">INT(10)</td>
+                                    <td class="p-4">
+                                        <p class="mb-2 font-medium text-slate-800">Typisierung des Ortes:</p>
+                                        <ul class="space-y-1 text-slate-600 list-disc list-inside">
+                                            <li><code
+                                                    class="text-xs bg-slate-100 px-1 py-0.5 rounded border border-slate-200">1</code>
+                                                <strong>Bereich:</strong> Logische Klammer (z.B. "Domplatz").
+                                            </li>
+                                            <li><code
+                                                    class="text-xs bg-slate-100 px-1 py-0.5 rounded border border-slate-200">2</code>
+                                                <strong>Steig:</strong> Physischer Mast. Referenziert Typ 1.
+                                            </li>
+                                            <li><code
+                                                    class="text-xs bg-slate-100 px-1 py-0.5 rounded border border-slate-200">9</code>
+                                                <strong>Betriebshof:</strong> Start/Ende für Fahrten.
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-mono font-bold text-slate-700">ORT_NR</td>
+                                    <td class="p-4 font-mono text-slate-500">INT(10)</td>
+                                    <td class="p-4">Eindeutige ID (Primärschlüssel). Wertebereich 1..999999.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-mono font-bold text-slate-700">ORT_NAME</td>
+                                    <td class="p-4 font-mono text-slate-500">VARCHAR(60)</td>
+                                    <td class="p-4">Interner Bezeichner. Dient Planungszwecken.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-mono font-bold text-slate-700">ORT_REF_ORT</td>
+                                    <td class="p-4 font-mono text-slate-500">INT(10)</td>
+                                    <td class="p-4">
+                                        Pflichtfeld für <code
+                                            class="text-xs bg-slate-100 px-1 py-0.5 rounded border border-slate-200">ONR_TYP_NR = 2</code>.
+                                        Enthält die ORT_NR des übergeordneten Bereichs.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- REC_HP -->
+                <section id="rec_hp" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="bg-blue-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-blue-200">
+                            REC_HP</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Haltepunkt-Attribute</h3>
+                    </div>
+                    <p class="text-slate-700 leading-relaxed mb-6 font-serif text-lg">
+                        1:1 Erweiterungstabelle zu <code>REC_ORT</code> (nur für Typ 2). Definiert betriebliche
+                        Eigenschaften.
+                    </p>
+
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ring-1 ring-slate-100">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold uppercase tracking-wider text-xs">
+                                <tr>
+                                    <th class="p-4 w-48">Feldname</th>
+                                    <th class="p-4 w-32">Datentyp</th>
+                                    <th class="p-4">Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold text-slate-700">HP_IFOPT</td>
+                                    <td class="p-4 font-mono text-slate-500">VARCHAR</td>
+                                    <td class="p-4">Global Unique ID (IFOPT). Bsp: <code>de:05711:1000:1</code>.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold text-slate-700">HP_RBL_NR</td>
+                                    <td class="p-4 font-mono text-slate-500">INT</td>
+                                    <td class="p-4">Kurznummer für Funk/Bordrechner Anmeldung.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold text-slate-700">HP_NAME_DRUCK</td>
+                                    <td class="p-4 font-mono text-slate-500">VARCHAR</td>
+                                    <td class="p-4">Texte für Innenanzeigen und Ticketdrucker.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- REC_SEL -->
+                <section id="rec_sel" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="bg-blue-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-blue-200">
+                            REC_SEL</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Relationen (Streckenkanten)</h3>
+                    </div>
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 text-blue-900 text-sm">
+                        <strong>Logik:</strong> Routing erfolgt gerichtet von Ort A nach Ort B. Für Fahrten in
+                        Gegenrichtung ist eine separate Relation erforderlich.
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ring-1 ring-slate-100">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold uppercase tracking-wider text-xs">
+                                <tr>
+                                    <th class="p-4 w-48">Feldname</th>
+                                    <th class="p-4 w-32">Datentyp</th>
+                                    <th class="p-4">Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold text-slate-700">SEL_VON_ORT</td>
+                                    <td class="p-4 font-mono text-slate-500">INT</td>
+                                    <td class="p-4">Start-Steig.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold text-slate-700">SEL_NACH_ORT</td>
+                                    <td class="p-4 font-mono text-slate-500">INT</td>
+                                    <td class="p-4">Ziel-Steig.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold text-slate-700">SEL_LAENGE</td>
+                                    <td class="p-4 font-mono text-slate-500">INT</td>
+                                    <td class="p-4">Distanz (Meter). Wichtig für Odometer und Tarif.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- REC_OM -->
+                <section id="rec_om" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="bg-blue-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-blue-200">
+                            REC_OM</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Ortsmarken (Zwischenpunkte)</h3>
+                    </div>
+                    <p class="text-slate-700 mb-6">
+                        Punkte ohne regulären Fahrgastwechsel. Dienen der Streckenmodellierung (Polyline) oder als
+                        Meldepunkte (LSA).
+                    </p>
+                    <!-- Simple definition table omitted for brevity, similar structure -->
+                </section>
+            </div>
+
+            <!-- 2. LINIENPLANUNG -->
+            <div>
+                <h2
+                    class="text-3xl font-bold text-slate-900 mb-8 pb-4 border-b-2 border-slate-900 flex items-center gap-3">
+                    <span class="bg-slate-900 text-white px-3 py-1 rounded text-lg font-mono">02</span>
+                    Liniennetz & Routing
+                </h2>
+
+                <!-- REC_LID -->
+                <section id="rec_lid" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="bg-indigo-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-indigo-200">
+                            REC_LID</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Linienstammdaten</h3>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ring-1 ring-slate-100">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold uppercase tracking-wider text-xs">
+                                <tr>
+                                    <th class="p-4 w-48">Feldname</th>
+                                    <th class="p-4">Spezifikation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-slate-50 border-b border-slate-50">
+                                    <td class="p-4 font-mono font-bold">LI_NR</td>
+                                    <td class="p-4">Eindeutige ID (Schlüssel), z.B. <code>10001</code>.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-slate-50">
+                                    <td class="p-4 font-mono font-bold">LI_KUERZEL</td>
+                                    <td class="p-4">Anzeigetext, z.B. <code>"SB50"</code>.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-slate-50">
+                                    <td class="p-4 font-mono font-bold">ROUTEN_NR</td>
+                                    <td class="p-4">Nummer für Bordrechner/RBL (z.B. <code>1</code> oder
+                                        <code>10</code>). Dient der technischen Identifikation der Route.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- LID_VERLAUF -->
+                <section id="lid_verlauf" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="bg-indigo-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-indigo-200">
+                            LID_VERLAUF</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Linienverlauf (Routen)</h3>
+                    </div>
+                    <p class="text-slate-700 mb-6 font-serif text-lg">
+                        Beschreibt die geordnete Abfolge an Haltestellen für eine Linienvariante (Route).
+                    </p>
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ring-1 ring-slate-100">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold uppercase tracking-wider text-xs">
+                                <tr>
+                                    <th class="p-4 w-48">Feldname</th>
+                                    <th class="p-4">Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-mono font-bold">STR_LI_VAR</td>
+                                    <td class="p-4">Name der Variante (z.B. "V1-Hbf"). Unterscheidet Hin-/Rückweg.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-mono font-bold">LFD_LID_NR</td>
+                                    <td class="p-4">Laufindex der Haltestelle (1, 2, 3...). Reihenfolge ist zwingend.
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-4 font-mono font-bold">ON_BEDARF</td>
+                                    <td class="p-4">Flag: Nur Halt bei Bedarf (Haltewunsch).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- MENGE_FGR -->
+                <section id="menge_fgr" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="bg-indigo-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-indigo-200">
+                            MENGE_FGR</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Fahrzeitgruppen</h3>
+                    </div>
+                    <p class="text-slate-700 mb-6">
+                        Gruppiert Fahrzeitprofile (z.B. "HVZ Montag"). Wird der Fahrt (REC_FRT) zugeordnet.
+                    </p>
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ring-1 ring-slate-100">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold uppercase tracking-wider text-xs">
+                                <tr>
+                                    <th class="p-4 w-48">Feldname</th>
+                                    <th class="p-4">Bedeutung</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold">FGR_NR</td>
+                                    <td class="p-4">ID der Gruppe (z.B. 101).</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold">STR_FGR</td>
+                                    <td class="p-4">Kürzel (z.B. "HVZ-MO").</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 3. FAHRPLAN & BETRIEB -->
+            <div>
+                <h2
+                    class="text-3xl font-bold text-slate-900 mb-8 pb-4 border-b-2 border-slate-900 flex items-center gap-3">
+                    <span class="bg-slate-900 text-white px-3 py-1 rounded text-lg font-mono">03</span>
+                    Fahrplan & Betrieb
+                </h2>
+
+                <!-- REC_FRT -->
+                <section id="rec_frt" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="bg-emerald-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-emerald-200">
+                            REC_FRT</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Fahrtdefinition</h3>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ring-1 ring-slate-100">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold uppercase tracking-wider text-xs">
+                                <tr>
+                                    <th class="p-4 w-48">Feldname</th>
+                                    <th class="p-4 w-32">Datentyp</th>
+                                    <th class="p-4">Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold">FRT_START</td>
+                                    <td class="p-4 font-mono text-slate-500">INT</td>
+                                    <td class="p-4">Abfahrtssekunde ab 00:00. <br><code>28800</code> = 08:00
+                                        Uhr.<br><code>93600</code> = 26:00 Uhr (02:00 Folgetag).</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold">FGR_NR</td>
+                                    <td class="p-4 font-mono text-slate-500">INT</td>
+                                    <td class="p-4">Verweis auf genutzte Fahrzeitgruppe.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- MENGE_BEREICH -->
+                <section id="menge_bereich" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="bg-emerald-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-emerald-200">
+                            MENGE_BEREICH</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Fahrzeuggruppen (Depots)</h3>
+                    </div>
+                    <p class="text-slate-700 mb-6">
+                        Klassifiziert Fahrten nach Betriebszweig (z.B. Subunternehmer, Solobus/Gelenkbus Anforderung).
+                    </p>
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ring-1 ring-slate-100 p-4">
+                        <ul class="list-disc list-inside text-sm text-slate-600 space-y-2">
+                            <li><strong>BEREICH_NR:</strong> ID (z.B. 10).</li>
+                            <li><strong>STR_BEREICH:</strong> Kürzel (z.B. "GLB" für Gelenkbus).</li>
+                            <li><strong>BEREICH_TEXT:</strong> Beschreibung (z.B. "Gelenkbusflotte").</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 4. FAHRGASTINFO -->
+            <div>
+                <h2
+                    class="text-3xl font-bold text-slate-900 mb-8 pb-4 border-b-2 border-slate-900 flex items-center gap-3">
+                    <span class="bg-slate-900 text-white px-3 py-1 rounded text-lg font-mono">04</span>
+                    Fahrgastinformation (FIS)
+                </h2>
+
+                <!-- REC_ZNR -->
+                <section id="rec_znr" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="bg-pink-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-pink-200">
+                            REC_ZNR</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Zielanzeigen (Matrix)</h3>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ring-1 ring-slate-100">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold uppercase tracking-wider text-xs">
+                                <tr>
+                                    <th class="p-4 w-48 bg-slate-50/50">Feldname</th>
+                                    <th class="p-4 w-32 bg-slate-50/50">Datentyp</th>
+                                    <th class="p-4 bg-slate-50/50">Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold">ZNR_NR</td>
+                                    <td class="p-4 font-mono text-slate-500">INT</td>
+                                    <td class="p-4">Zielnummer für IBIS-Gerät (000-999).</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold">ZNR_TEXT</td>
+                                    <td class="p-4 font-mono text-slate-500">VARCHAR(160)</td>
+                                    <td class="p-4">Voller Text für die Frontanzeige (z.B. "Hauptbahnhof über City").
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold">SEITENTEXT</td>
+                                    <td class="p-4 font-mono text-slate-500">VARCHAR(160)</td>
+                                    <td class="p-4">Optionaler abweichender Text für Seitenanzeigen.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- REC_ANR -->
+                <section id="rec_anr" class="mb-16 scroll-mt-32">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="bg-pink-600 text-white font-mono font-bold px-3 py-1 rounded shadow-lg shadow-pink-200">
+                            REC_ANR</div>
+                        <h3 class="text-2xl font-bold text-slate-800">Ansagenkonfiguration</h3>
+                    </div>
+                    <p class="text-slate-700 mb-6">
+                        Verwaltet MP3-Ansagen. Die Zuordnung zur Haltestelle erfolgt im <code>LID_VERLAUF</code> (Feld
+                        <code>LID_ANR_NR</code>).
+                    </p>
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ring-1 ring-slate-100">
+                        <table class="w-full text-sm text-left">
+                            <thead
+                                class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold uppercase tracking-wider text-xs">
+                                <tr>
+                                    <th class="p-4 w-48">Feldname</th>
+                                    <th class="p-4">Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold">ANR_NR</td>
+                                    <td class="p-4">Ansagen-ID (z.B. 100).</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-4 font-mono font-bold">ANR_DATEI</td>
+                                    <td class="p-4">Dateiname der MP3 auf dem Bordrechner (z.B. "ansage_100.mp3").</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- End Spacer -->
+            <div class="h-20"></div>
+
+        </div>
+    </div>
+</div>

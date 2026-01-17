@@ -1,50 +1,84 @@
-<!-- line-list.component.html -->
-<div class="d-flex align-items-center flex-shrink-0 p-3 justify-content-between link-dark text-decoration-none border-bottom">
-  <div class="d-flex">
-  <span class="fs-5 fw-semibold">Haltestellen</span>
-  <div class="btn-toolbar">
-    <button class="btn mx-2" type="button" (click)="addStop()"><fa-icon [icon]="faPlus"></fa-icon></button>
-    <button class="btn mx-2" type="button" (click)="editStop()" [disabled]="selectedRow.length == 0"><fa-icon [icon]="faPenSquare"></fa-icon></button>
-    <button class="btn mx-2" type="button" [disabled]="selectedRow.length == 0" (click)="deleteStop()"><fa-icon [icon]="faTrash"></fa-icon></button>
-  </div>
-</div>
-  <input
-  type="text" class=""
-  placeholder="Haltestelle"
-  (keyup)="updateFilter($event)"
-/>
-</div>
-      <div class="btn-toolbar">
-
+<!-- stop-list.component.html -->
+<div class="flex flex-col h-full bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+  <!-- Header Toolbar -->
+  <div class="flex items-center justify-between p-4 border-b border-slate-100 bg-slate-50/50">
+    <div class="flex items-center gap-4">
+      <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">
+        <fa-icon [icon]="faCircleH" class="text-xl"></fa-icon>
       </div>
-<div class="list-group">
-  <ngx-datatable #stopTable class="bootstrap container striped fixed-header" [rows]="stops" columnMode="force" [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [selectionType]="selectionType" [selected]="selectedRow" (select)="onSelected($event)" [limit]="50"
-  >
-    <ngx-datatable-column name="ID">
-      <ng-template let-row="row" ngx-datatable-cell-template>
-        {{ row.id }}
+      <div>
+        <h2 class="text-lg font-bold text-slate-800 tracking-tight">Haltestellen</h2>
+        <p class="text-xs text-slate-500 font-medium">{{recOrts.length}} Einträge gefunden</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="relative flex items-center">
+        <i class="pi pi-search absolute left-3 text-slate-400 z-10 pointer-events-none"></i>
+        <input type="text" pInputText placeholder="Suchen..." (input)="applyFilterGlobal($event, 'contains')"
+          class="!pl-10 !pr-4 !py-2 !border !border-slate-300 !rounded-lg !text-sm !w-64 focus:!border-blue-500 focus:!ring-2 focus:!ring-blue-100 !bg-white transition-all shadow-sm" />
+      </div>
+      <p-button label="Neu" icon="pi pi-plus" severity="success" (onClick)="addStop()" size="small"></p-button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="flex-1 overflow-auto bg-white p-2">
+    <p-table #dt [value]="recOrts" [rows]="100" [paginator]="true"
+      [globalFilterFields]="['ORT_NAME', 'ORT_NR', 'ORT_REF_ORT_KUERZEL']" [tableStyle]="{ 'min-width': '50rem' }"
+      [rowHover]="true" dataKey="ORT_NR"
+      currentPageReportTemplate="Zeige {first} bis {last} von {totalRecords} Einträgen" [showCurrentPageReport]="true"
+      styleClass="p-datatable-striped">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="ORT_NR" class="font-semibold text-sm text-slate-700" style="width:10%">Nr. <p-sortIcon
+              field="ORT_NR"></p-sortIcon></th>
+          <th pSortableColumn="ORT_NAME" class="font-semibold text-sm text-slate-700" style="width:40%">Name <p-sortIcon
+              field="ORT_NAME"></p-sortIcon></th>
+          <th pSortableColumn="ORT_REF_ORT_KUERZEL" class="font-semibold text-sm text-slate-700" style="width:15%">
+            Kürzel <p-sortIcon field="ORT_REF_ORT_KUERZEL"></p-sortIcon></th>
+          <th pSortableColumn="subOrtCount" class="font-semibold text-sm text-slate-700" style="width:15%">Steige
+            <p-sortIcon field="subOrtCount"></p-sortIcon>
+          </th>
+          <th class="font-semibold text-sm text-slate-700" style="width:20%">Aktionen</th>
+        </tr>
       </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="Name">
-      <ng-template let-row="row" ngx-datatable-cell-template>
-        {{ row.name }}
+      <ng-template pTemplate="body" let-stop>
+        <tr class="hover:bg-slate-50 transition-colors cursor-pointer" (click)="editStop(stop)">
+          <td class="font-medium text-slate-600">{{ stop.ORT_NR }}</td>
+          <td class="font-semibold text-slate-800">{{ stop.ORT_NAME }}</td>
+          <td>
+            <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs font-mono border border-slate-200">
+              {{ stop.ORT_REF_ORT_KUERZEL || '-' }}
+            </span>
+          </td>
+          <td>
+            <span
+              class="inline-flex items-center justify-center w-6 h-6 bg-blue-50 text-blue-600 rounded-full text-xs font-bold">
+              {{ stop.subOrtCount || 0 }}
+            </span>
+          </td>
+          <td>
+            <div class="flex gap-2">
+              <p-button icon="pi pi-pencil" [text]="true" severity="warn" size="small"
+                (onClick)="editStop(stop); $event.stopPropagation()"></p-button>
+              <p-button icon="pi pi-trash" [text]="true" severity="danger" size="small"
+                (onClick)="deleteStop(stop, $event)"></p-button>
+            </div>
+          </td>
+        </tr>
       </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="übergeordnete Haltestelle">
-      <ng-template let-row="row" ngx-datatable-cell-template>
-        <p *ngIf="row.parent != null">{{ row.parent.name }}</p>
-
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" class="text-center p-8 text-slate-500">
+            <div class="flex flex-col items-center justify-center">
+              <i class="pi pi-inbox text-4xl mb-3 text-slate-300"></i>
+              <p>Keine Haltestellen gefunden.</p>
+            </div>
+          </td>
+        </tr>
       </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="Abkürzung">
-      <ng-template let-row="row" ngx-datatable-cell-template>
-        <p *ngIf="row.information != null">{{ row.information.code }}</p>
-
-      </ng-template>
-    </ngx-datatable-column>
-
-
-    <!-- Add additional columns as needed -->
-
-  </ngx-datatable>
+    </p-table>
+  </div>
 </div>

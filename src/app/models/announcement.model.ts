@@ -7,5 +7,6 @@ export class Announcement {
     name!: string
     fullText!: string
     fileName?: string
+    basisVersion!: number;
     stops: Stop[] = []
 }

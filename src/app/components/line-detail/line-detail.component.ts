@@ -1,63 +1,87 @@
-// line-detail.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LineService } from '../../services/line.service';
-import { Line } from '../../models/line.model';
-import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
+import { RecLid } from '../../models/line.model';
+
 import { Route } from '../../models/route.model';
 import { RouteService } from '../../services/route.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'; // PrimeNG
+import { Button } from 'primeng/button';
+import { InputText } from 'primeng/inputtext';
+import { InputNumber } from 'primeng/inputnumber';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { ToastModule } from 'primeng/toast';
+import { Select } from 'primeng/select';
+import { ColorPickerModule } from 'primeng/colorpicker';
 import { FormsModule } from '@angular/forms';
-import { TitlebarComponent } from '../titlebar/titlebar.component';
+
 
 @Component({
   selector: 'app-line-detail',
   templateUrl: './line-detail.component.html',
   styleUrls: ['./line-detail.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, NgxDatatableModule, TitlebarComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+
+    Button,
+    InputText,
+    TableModule,
+    DialogModule,
+    CardModule,
+    ColorPickerModule,
+    ToastModule
+  ]
 })
 export class LineDetailComponent implements OnInit {
-  line?: Line
-  routes: Route[] = []
-
-  selectionType: SelectionType = SelectionType.single
-  selectedRoute: Route[] = []
+  line?: RecLid
+  variants: RecLid[] = []
 
   constructor(
     private route: ActivatedRoute,
     private lineService: LineService,
-    private routeService: RouteService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-  }
-  ngAfterViewInit() {
     this.route.params.subscribe(params => {
-       const lineId = params['lineId'];
+      const lineId = params['lineId'];
 
-      this.lineService.getLineById(lineId).subscribe(line => {
+      // Check if creating a new line
+      if (lineId === 'new') {
+        this.line = {
+          LI_NR: 0,
+          STR_LID: '',
+          LI_KUERZEL: '',
+          LIDNAME: '',
+          BASIS_VERSION: 1
+        } as RecLid;
+        this.variants = [];
+        return;
+      }
+
+      this.lineService.getLineById(+lineId).subscribe(line => {
         this.line = line;
 
       });
-      this.routeService.getRoutesByLine(lineId).subscribe(routes => {
-        this.routes = routes
-      })
+      // VDV Variants
+      this.lineService.getLineVariants(+lineId).subscribe(vars => {
+        this.variants = vars;
+      });
     });
   }
 
-  onSelected({ selected }: any) {
-    // 'selected' array contains the selected rows
-    this.selectedRoute = selected;
-    // this.router.navigate(['/lines/' + this.selectedRow[0].id])
+  ngAfterViewInit() {
   }
+
   saveLine(): void {
     if (this.line) {
-
-      // Update existing line
       this.lineService.updateLine(this.line).subscribe(
-        (updatedLine: any) => {
+        (updatedLine: RecLid) => {
           console.log('Line updated:', updatedLine);
         },
         (error: any) => {
@@ -65,21 +89,20 @@ export class LineDetailComponent implements OnInit {
         }
       );
     }
-}
-  editRoute(): void {
-    this.router.navigate(['/lines/' + this.line?.id + '/routes/' + this.selectedRoute[0].number])
-
-  }
-  addRoute(): void {
-    console.log('add route')
-    this.router.navigate(['/lines/' + this.line?.id + '/routes/add'])
-
-  }
-  deleteRoute(): void {
-    this.routeService.deleteRoute(this.selectedRoute[0]).subscribe(success => {
-      console.log('deleted route')
-    })
   }
 
+  editVariant(variant: RecLid): void {
+    this.router.navigate(['/lines', this.line?.LI_NR, 'variants', variant.STR_LI_VAR]);
+  }
 
+  addVariant(): void {
+    this.router.navigate(['/lines', this.line?.LI_NR, 'variants', 'new']);
+  }
+
+  deleteVariant(variant: RecLid): void { // Fixed type
+    if (!confirm('Variante wirklich löschen?')) return;
+    this.lineService.deleteVariant(variant.LI_NR, variant.STR_LI_VAR).subscribe(() => {
+      this.variants = this.variants.filter(v => v.STR_LI_VAR !== variant.STR_LI_VAR);
+    });
+  }
 }

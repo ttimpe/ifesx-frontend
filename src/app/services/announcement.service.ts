@@ -8,19 +8,23 @@ import { Observable } from 'rxjs';
 })
 export class AnnouncementService {
 
-  private apiUrl = 'http://localhost:3000/announcements';
+  private apiUrl = '/api/announcements';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   getAllAnnouncementFiles(): Observable<string[]> {
     const url = `${this.apiUrl}/files`;
     return this.http.get<string[]>(url);
   }
 
-  getAllAnnouncements(): Observable<Announcement[]> {
-    return this.http.get<Announcement[]>(this.apiUrl);
+  getAllAnnouncements(basisVersion?: number): Observable<Announcement[]> {
+    let url = this.apiUrl;
+    if (basisVersion) {
+      url += `?basisVersion=${basisVersion}`;
+    }
+    return this.http.get<Announcement[]>(url);
   }
-  getAnnouncementById(id: number): Observable<Announcement> {
-    const url = `${this.apiUrl}/${id}`;
+  getAnnouncementById(id: number, basisVersion: number = 1): Observable<Announcement> {
+    const url = `${this.apiUrl}/${id}?basisVersion=${basisVersion}`;
     return this.http.get<Announcement>(url);
   }
 
@@ -33,8 +37,14 @@ export class AnnouncementService {
     return this.http.put<Announcement>(url, announcement);
   }
   deleteAnnouncement(announcement: Announcement): Observable<Announcement> {
-    const url = `${this.apiUrl}/${announcement.id}`;
+    const url = `${this.apiUrl}/${announcement.id}?basisVersion=${announcement.basisVersion}`;
     return this.http.delete<Announcement>(url);
+  }
+
+  uploadAudio(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${this.apiUrl}/upload`, formData);
   }
 }
 

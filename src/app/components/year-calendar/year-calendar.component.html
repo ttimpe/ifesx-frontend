@@ -1,27 +1,45 @@
-<div class="container">
-  <div class="row">
-    <div *ngFor="let month of calendar" class="col-md-4 mb-4">
-      <h6 class="text-center">{{ month.month }}</h6>
-      <div class="calendar-grid border border-secondary">
-        <div class="d-flex flex-wrap text-center border-bottom border-secondary">
-          <div class="flex-fill fw-bold">Mo</div>
-          <div class="flex-fill fw-bold">Di</div>
-          <div class="flex-fill fw-bold">Mi</div>
-          <div class="flex-fill fw-bold">Do</div>
-          <div class="flex-fill fw-bold">Fr</div>
-          <div class="flex-fill fw-bold">Sa</div>
-          <div class="flex-fill fw-bold">So</div>
+<div class="calendar-container">
+  <!-- Layout: 1 col on mobile, 2 on medium, 3 on large/desktop -->
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div *ngFor="let month of calendar" class="month-block animate-fade-in">
+      <div
+        class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
+
+        <!-- Month Header -->
+        <div class="bg-slate-50 border-b border-slate-100 px-4 py-3">
+          <h6 class="text-slate-800 font-bold text-center m-0 capitalize">{{ month.month }}</h6>
         </div>
-        <div class="d-flex flex-wrap">
-          <div *ngFor="let day of month.days"
-          class="day p-2 flex-fill text-center border-end border-secondary"
-          [ngClass]="{
-            'outside-month': !day.isCurrentMonth,
-            'out-of-range': day.isOutOfRange
-          }"
-          [class]="day.specialClass">
-       {{ day.date.getDate() }}
-     </div>
+
+        <!-- Calendar Body -->
+        <div class="p-3">
+          <!-- Weekdays Grid -->
+          <div class="grid grid-cols-7 text-center mb-2">
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Mo</div>
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Di</div>
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Mi</div>
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Do</div>
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Fr</div>
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Sa</div>
+            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">So</div>
+          </div>
+
+          <!-- Days Grid -->
+          <div class="grid grid-cols-7 gap-px bg-slate-100 border border-slate-100 rounded-lg overflow-hidden">
+            <div *ngFor="let day of month.days"
+              class="day-cell relative aspect-square flex items-center justify-center text-xs transition-all duration-200 bg-white"
+              [ngClass]="getDayClasses(day)"
+              [title]="day.betriebstag ? (day.tagesart?.TAGESART_TEXT || 'Betriebstag') : ''"
+              (click)="onDayClick($event, day)"
+              [style.cursor]="isMultiSelectMode && !day.isOutOfRange ? 'pointer' : 'default'">
+
+              <!-- Selection layer -->
+              <div *ngIf="day.isSelected" class="absolute inset-0 bg-blue-500 opacity-20"></div>
+              <div *ngIf="day.isSelected" class="absolute bottom-1 w-1 h-1 rounded-full bg-blue-500"></div>
+
+              <span class="relative z-10">{{ day.date.getDate() }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

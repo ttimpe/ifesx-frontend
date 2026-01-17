@@ -1,55 +1,69 @@
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SpecialCharacter } from './../../models/special-character.model';
-import { Component } from '@angular/core';
-import { faPenSquare, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
-import { SpecialCharacterService } from 'src/app/services/special-character.service';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TitlebarComponent } from '../titlebar/titlebar.component';
 import { FormsModule } from '@angular/forms';
+import { SpecialCharacterService } from 'src/app/services/special-character.service';
+
+// PrimeNG
+import { TableModule } from 'primeng/table';
+import { Button } from 'primeng/button';
+import { InputText } from 'primeng/inputtext';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { Tooltip } from 'primeng/tooltip';
+import { CalendarService } from '../../services/calendar.service';
 
 @Component({
   selector: 'app-special-character-list',
   templateUrl: './special-character-list.component.html',
   styleUrls: ['./special-character-list.component.css'],
   standalone: true,
-  imports: [CommonModule, NgxDatatableModule, FontAwesomeModule, TitlebarComponent, FormsModule]
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    TableModule,
+    Button,
+    InputText,
+    Tooltip
+  ]
 })
-export class SpecialCharacterListComponent {
+export class SpecialCharacterListComponent implements OnInit {
   specialCharacters: SpecialCharacter[] = [];
-  selectionType: SelectionType = SelectionType.single
-  selectedRow: SpecialCharacter[] = []
-  faTrash = faTrash
-  faPlus = faPlus
-  faPenSquare = faPenSquare
-  constructor(private specialCharacterService: SpecialCharacterService, private router: Router) {}
+  selectedVersion: number | null = null;
+  loading: boolean = false;
+
+  constructor(
+    private specialCharacterService: SpecialCharacterService,
+    private router: Router,
+    private calendarService: CalendarService
+  ) { }
 
   ngOnInit(): void {
-    this.loadSpecialCharacters();
+    // Subscribe to version changes
+    this.calendarService.selectedVersion$.subscribe(version => {
+      this.selectedVersion = version;
+      this.loadSpecialCharacters();
+    });
   }
-  onSelected({ selected }: any) {
-    // 'selected' array contains the selected rows
-    this.selectedRow = selected;
-  }
+
   private loadSpecialCharacters(): void {
-    this.specialCharacterService.getAllSpecialCharacters().subscribe(
-      (specialCharacters) => {
+    const version = this.selectedVersion || undefined;
+    this.loading = true;
+    this.specialCharacterService.getAllSpecialCharacters(version).subscribe({
+      next: (specialCharacters) => {
         this.specialCharacters = specialCharacters;
+        this.loading = false;
       },
-      (error) => {
-        console.error('Error fetching announcements:', error);
+      error: (error) => {
+        console.error('Error fetching special characters:', error);
+        this.loading = false;
       }
-    );
+    });
   }
-  addSpecialCharacter() {
-    this.router.navigate(['/specialCharacters/add'])
 
-  }
-  editSpecialCharacter() {
-    this.router.navigate(['/specialCharacters/' + this.selectedRow[0].id])
-  }
-  deleteSpecialCharacter() {
-
+  deleteCharacter(char: SpecialCharacter) {
+    // TODO: Implement delete logic confirmation
   }
 }

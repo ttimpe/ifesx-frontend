@@ -1,53 +1,71 @@
-// line-list.component.ts
-
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LineService } from '../../services/line.service';
-import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
-import { Destination } from '../../models/destination.model';
-import { Line } from '../../models/line.model';
-import { Router } from '@angular/router';
-import { faPenSquare, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { RecLid } from '../../models/line.model';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TitlebarComponent } from '../titlebar/titlebar.component';
+import { CalendarService } from '../../services/calendar.service';
+
+import { Table, TableModule } from 'primeng/table';
+import { Button } from 'primeng/button';
+import { InputText } from 'primeng/inputtext';
+import { faRoute, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-line-list',
   templateUrl: './line-list.component.html',
   styleUrls: ['./line-list.component.css'],
   standalone: true,
-  imports: [CommonModule, NgxDatatableModule, FontAwesomeModule, TitlebarComponent]
+  imports: [CommonModule, RouterModule, FontAwesomeModule, TableModule,
+    Button,
+    InputText],
 })
 export class LineListComponent implements OnInit {
-  lines: Line[] = [];
-  selectionType: SelectionType = SelectionType.single
-  selectedRow: Line[] = []
+  lines: RecLid[] = [];
+  selectedBasisVersion: number | undefined;
 
   faTrash = faTrash
   faPlus = faPlus
-  faPenSquare = faPenSquare
+  faRoute = faRoute
 
-  constructor(private lineService: LineService, private router: Router) { }
+  @ViewChild('dt') dt: Table | undefined;
+
+  constructor(private lineService: LineService, private router: Router, private calendarService: CalendarService) { }
 
   ngOnInit(): void {
-    this.lineService.getLines().subscribe(lines => {
-      lines.sort((a: Line, b: Line) => {
-          return parseInt(a.number) - parseInt(b.number)
+    this.calendarService.selectedVersion$.subscribe(version => {
+      this.selectedBasisVersion = version || undefined;
+      this.loadLines();
+    });
+  }
+
+  loadLines() {
+    this.lineService.getLines(this.selectedBasisVersion).subscribe(lines => {
+      lines.sort((a: RecLid, b: RecLid) => {
+        // Safe parsing or string comparison for LI_KUERZEL
+        return (a.LI_KUERZEL || '').localeCompare(b.LI_KUERZEL || '');
       })
       this.lines = lines
     });
   }
-  onSelected({ selected }: any) {
-    this.selectedRow = selected;
-    this.router.navigate(['/lines/' + this.selectedRow[0].id])
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
+
   addLine() {
-
+    this.router.navigate(['/lines/new']);
   }
-  editLine() {
 
+  editLine(line: RecLid) {
+    this.router.navigate(['/lines/' + line.LI_NR]);
   }
-  deleteLine() {
 
+  deleteLine(line: RecLid) {
+    // Confirm delete?
+    if (!confirm('Linie wirklich löschen?')) return;
+
+    this.lineService.deleteLine(line.LI_NR).subscribe(() => {
+      this.lines = this.lines.filter(l => l.LI_NR !== line.LI_NR);
+    });
   }
 }

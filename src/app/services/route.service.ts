@@ -10,22 +10,22 @@ import { Route } from '../models/route.model';
 })
 export class RouteService {
 
-  private apiUrl = 'http://localhost:3000'; // Update with your API URL
+  private apiUrl = '/api'; // Update with your API URL
 
   constructor(private http: HttpClient) { }
 
-  getRoutesByLine(lineId: string) {
+  getRoutesByLine(lineId: string | number) {
     return this.http.get<Route[]>(`${this.apiUrl}/lines/${lineId}/routes`);
   }
 
-  getRouteByLine(lineId: string, routeId: number): Observable<any> {
+  getRouteByLine(lineId: string | number, routeId: number): Observable<any> {
     const url = `${this.apiUrl}/lines/${lineId}/routes/${routeId}`;
     return this.http.get<Route>(url);
   }
 
   updateRoute(route: any): Observable<any> {
     const url = `${this.apiUrl}/lines/${route.line_id}/routes/${route.id}`;
-    for (let i=0; i<route.stops.length; i++) {
+    for (let i = 0; i < route.stops.length; i++) {
       route.stops[i].stop_id = route.stops[i].stop.id
       route.stops[i].sequence_number = i
     }
@@ -34,7 +34,7 @@ export class RouteService {
 
   createRoute(route: any): Observable<any> {
     const url = `${this.apiUrl}/lines/${route.line_id}/routes/`;
-    for (let i=0; i<route.stops.length; i++) {
+    for (let i = 0; i < route.stops.length; i++) {
       route.stops[i].stop_id = route.stops[i].stop.id
       route.stops[i].sequence_number = i
     }

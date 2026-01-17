@@ -7,13 +7,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SpecialCharacterService {
-  private apiUrl = 'http://localhost:3000/specialCharacters';
+  private apiUrl = '/api/specialCharacters';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
 
-  getAllSpecialCharacters(): Observable<SpecialCharacter[]> {
-    return this.http.get<SpecialCharacter[]>(this.apiUrl);
+  getAllSpecialCharacters(basisVersion?: number): Observable<SpecialCharacter[]> {
+    let url = this.apiUrl;
+    if (basisVersion) {
+      url += `?basisVersion=${basisVersion}`;
+    }
+    return this.http.get<SpecialCharacter[]>(url);
   }
   getSpecialCharacterById(id: number): Observable<SpecialCharacter> {
     const url = `${this.apiUrl}/${id}`;

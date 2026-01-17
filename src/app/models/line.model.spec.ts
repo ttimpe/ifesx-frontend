@@ -1,7 +1,7 @@
-import { Line } from './line.model';
+import { RecLid } from './line.model';
 
 describe('Line', () => {
   it('should create an instance', () => {
-    expect(new Line()).toBeTruthy();
+    expect(new RecLid()).toBeTruthy();
   });
 });
