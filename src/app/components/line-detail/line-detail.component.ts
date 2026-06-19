@@ -14,8 +14,9 @@ import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { Select } from 'primeng/select';
-import { ColorPickerModule } from 'primeng/colorpicker';
 import { FormsModule } from '@angular/forms';
+import { MengeBereichService } from '../../services/menge-bereich.service';
+import { MengeBereich } from '../../models/menge-bereich.model';
 
 
 @Component({
@@ -30,39 +31,36 @@ import { FormsModule } from '@angular/forms';
 
     Button,
     InputText,
+    InputNumber,
+    Select,
     TableModule,
     DialogModule,
     CardModule,
-    ColorPickerModule,
     ToastModule
   ]
 })
 export class LineDetailComponent implements OnInit {
   line?: RecLid
   variants: RecLid[] = []
+  bereichOptions: { value: number, label: string }[] = []
 
   constructor(
     private route: ActivatedRoute,
     private lineService: LineService,
-    private router: Router
+    private router: Router,
+    private bereichService: MengeBereichService
   ) { }
 
   ngOnInit(): void {
+    this.bereichService.getAll().subscribe(bereiche => {
+      this.bereichOptions = bereiche.map((b: MengeBereich) => ({
+        value: b.BEREICH_NR,
+        label: [b.STR_BEREICH, b.BEREICH_TEXT].filter(Boolean).join(' – ') || `Bereich ${b.BEREICH_NR}`
+      }));
+    });
+
     this.route.params.subscribe(params => {
       const lineId = params['lineId'];
-
-      // Check if creating a new line
-      if (lineId === 'new') {
-        this.line = {
-          LI_NR: 0,
-          STR_LID: '',
-          LI_KUERZEL: '',
-          LIDNAME: '',
-          BASIS_VERSION: 1
-        } as RecLid;
-        this.variants = [];
-        return;
-      }
 
       this.lineService.getLineById(+lineId).subscribe(line => {
         this.line = line;

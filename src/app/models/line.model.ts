@@ -1,39 +1,33 @@
-import { Route } from "./route.model"
-
+/**
+ * REC_LID (VDV 452) — a single Fahrweg / Linienvariante.
+ *
+ * A "Linie" is not a separate entity in VDV 452: it exists purely as the set of
+ * REC_LID rows that share the same LI_NR. Line-level fields (LI_KUERZEL,
+ * LINIEN_CODE, BEREICH_NR) are therefore identical across all variants of a line,
+ * while LIDNAME / LI_RI_NR / ROUTEN_* describe the individual Fahrweg.
+ */
 export class RecLid {
-  // VDV 452 Keys & Attributes (Strict)
-  BASIS_VERSION!: number; // PK
-  LI_NR!: number;         // PK
-  STR_LID!: string;       // VDV: LI_KUERZEL
-  STR_LI_VAR!: string;    // VDV: PK Variant
+  // Primary key
+  BASIS_VERSION!: number;
+  LI_NR!: number;         // Liniennummer (identifies the line)
+  STR_LI_VAR!: string;    // Variant identifier (identifies the Fahrweg)
 
-
-  ROUTEN_NR?: number;
-  LI_RI_NR?: number;
-  BEREICH_NR?: number;
-  LI_KUERZEL?: string;    // VDV: Short Line Name (was STR_LID)
-  LIN_NAME?: string;
-
+  // Line-level (shared across all variants of the LI_NR)
+  LI_KUERZEL?: string;    // Liniennummer/Kürzel (max 6)
   LINIEN_CODE?: number;
-  LIDNAME?: string;       // VDV: Name of Line/Variant
+  BEREICH_NR?: number;
 
+  // Variant-level (per Fahrweg)
+  LIDNAME?: string;       // Name of the Fahrweg (max 40)
+  LI_RI_NR?: number;      // Direction (1 = Hin, 2 = Rück)
+  ROUTEN_NR?: number;
+  ROUTEN_ART?: number;
 
-  // Additional/Legacy properties (mapped or kept for UI)
-  LIN_FARBE: string = '#00ff00';      // UI specific
-  LIN_TEXT_FARBE: string = '#000000'; // UI specific
+  // Aggregate, only set by GET /lines for the line list
+  variantCount?: number;
 
-  // Aliases/Getters for convenience (aligning with previous RecLid if needed)
-  get LID_NR(): number { return this.LI_NR; }
-  set LID_NR(v: number) { this.LI_NR = v; }
-
-  // Removed Aliases for STR_LID and LIN_NAME as they are now the primary fields
-
-
-  // Helpers
+  // Display helper for variant dropdowns
   get displayName(): string {
     return `${this.STR_LI_VAR} (${this.LIDNAME || 'Standard'})`;
   }
-
-  // Relations
-  routes: Route[] = [] // Note: Route type might need update too
 }

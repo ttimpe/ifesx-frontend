@@ -64,10 +64,8 @@ export class RecUmlaufDetailComponent implements OnInit {
                 // RecLid has LIN_NAME (or LIDNAME) directly now
                 // Also has LI_KUERZEL (or STR_LID)
                 const lid = v;
-                // Use LI_KUERZEL (Nummer) and LIDNAME (Bezeichnung) to construct a display string for the LINE
-                // But this getter groups by LI_NR.
-                // We just need a representative name.
-                lineMap.set(v.LI_NR, { LI_NR: v.LI_NR, LIN_NAME: `${lid.LI_KUERZEL} - ${lid.LIDNAME}`, LIN_FARBE: lid.LIN_FARBE || '#333' });
+                // Group by LI_NR; LI_KUERZEL (Nummer) + LIDNAME (Bezeichnung) form a representative label.
+                lineMap.set(v.LI_NR, { LI_NR: v.LI_NR, LIN_NAME: `${lid.LI_KUERZEL} - ${lid.LIDNAME}`, LIN_FARBE: '#333' });
             }
         });
         return Array.from(lineMap.values());

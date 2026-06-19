@@ -30,49 +30,32 @@
         <!-- Main Data Column -->
         <div class="lg:col-span-1 flex flex-col gap-6">
 
-          <!-- Basic Data & Colors -->
+          <!-- Stammdaten (Linien-Ebene, gilt für alle Fahrwege) -->
           <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
             <div class="p-4 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
               <h3 class="font-bold text-slate-800 flex items-center gap-2">
-                <i class="pi pi-palette text-purple-500"></i> Stammdaten
+                <i class="pi pi-id-card text-purple-500"></i> Stammdaten
               </h3>
             </div>
             <div class="p-6 flex flex-col gap-4">
-              <div class="flex flex-col gap-2">
-                <label class="text-xs font-semibold text-slate-500 uppercase">Nummer (LI_KUERZEL)</label>
-                <input pInputText [(ngModel)]="line.LI_KUERZEL" class="w-full font-bold" />
-              </div>
+              <p class="text-xs text-slate-400">Diese Felder gelten für alle Fahrwege der Linie.</p>
 
               <div class="flex flex-col gap-2">
-                <label class="text-xs font-semibold text-slate-500 uppercase">Bezeichnung (LIDNAME)</label>
-                <input pInputText [(ngModel)]="line.LIDNAME" class="w-full" />
+                <label class="text-xs font-semibold text-slate-500 uppercase">Liniennummer (LI_KUERZEL)</label>
+                <input pInputText [(ngModel)]="line.LI_KUERZEL" maxlength="6" class="w-full font-bold" />
               </div>
 
               <div class="grid grid-cols-2 gap-4">
                 <div class="flex flex-col gap-2">
-                  <label class="text-xs font-semibold text-slate-500 uppercase">Hintergrund</label>
-                  <div class="flex gap-2 items-center">
-                    <p-colorPicker [(ngModel)]="line.LIN_FARBE"></p-colorPicker>
-                    <span class="text-sm font-mono text-slate-600">{{line.LIN_FARBE}}</span>
-                  </div>
+                  <label class="text-xs font-semibold text-slate-500 uppercase">Linien-Code</label>
+                  <p-inputNumber [(ngModel)]="line.LINIEN_CODE" [useGrouping]="false" styleClass="w-full"></p-inputNumber>
                 </div>
                 <div class="flex flex-col gap-2">
-                  <label class="text-xs font-semibold text-slate-500 uppercase">Textfarbe</label>
-                  <div class="flex gap-2 items-center">
-                    <p-colorPicker [(ngModel)]="line.LIN_TEXT_FARBE"></p-colorPicker>
-                    <span class="text-sm font-mono text-slate-600">{{line.LIN_TEXT_FARBE}}</span>
-                  </div>
+                  <label class="text-xs font-semibold text-slate-500 uppercase">Bereich</label>
+                  <p-select [options]="bereichOptions" [(ngModel)]="line.BEREICH_NR" optionLabel="label"
+                    optionValue="value" [showClear]="true" placeholder="Bereich wählen" styleClass="w-full"
+                    appendTo="body"></p-select>
                 </div>
-              </div>
-
-              <!-- Preview -->
-              <div
-                class="mt-4 p-4 bg-slate-50 rounded-lg flex flex-col gap-2 items-center justify-center border border-slate-200 border-dashed">
-                <span class="text-xs text-slate-400 uppercase font-semibold">Vorschau</span>
-                <span class="inline-block px-4 py-2 rounded text-xl font-bold min-w-[4rem] text-center shadow-sm"
-                  [ngStyle]="{'background-color': line.LIN_FARBE, 'color': line.LIN_TEXT_FARBE}">
-                  {{ line.LI_KUERZEL }}
-                </span>
               </div>
             </div>
           </div>

@@ -27,23 +27,30 @@ export class LineService {
     return this.http.get<RecLid>(url);
   }
 
+  // Updates line-level fields; the backend propagates them to all variants.
   updateLine(line: RecLid): Observable<RecLid> {
     const payload = {
-      STR_LID: line.STR_LID,
-      LIN_NAME: line.LIN_NAME,
-      LIN_FARBE: line.LIN_FARBE,
-      LIN_TEXT_FARBE: line.LIN_TEXT_FARBE
+      LI_KUERZEL: line.LI_KUERZEL,
+      LINIEN_CODE: line.LINIEN_CODE,
+      BEREICH_NR: line.BEREICH_NR
     }
     const url = `${this.apiUrl}/${line.LI_NR}`;
     return this.http.put<RecLid>(url, payload);
   }
 
+  // Creates a line together with its first Fahrweg (one REC_LID row).
   createLine(line: RecLid): Observable<RecLid> {
     const payload = {
-      STR_LID: line.STR_LID,
-      LIN_NAME: line.LIN_NAME,
-      LIN_FARBE: line.LIN_FARBE,
-      LIN_TEXT_FARBE: line.LIN_TEXT_FARBE
+      // Line-level
+      LI_KUERZEL: line.LI_KUERZEL,
+      LINIEN_CODE: line.LINIEN_CODE,
+      BEREICH_NR: line.BEREICH_NR,
+      // First Fahrweg
+      STR_LI_VAR: line.STR_LI_VAR,
+      LIDNAME: line.LIDNAME,
+      LI_RI_NR: line.LI_RI_NR,
+      ROUTEN_NR: line.ROUTEN_NR,
+      ROUTEN_ART: line.ROUTEN_ART
     }
     return this.http.post<RecLid>(this.apiUrl, payload);
   }

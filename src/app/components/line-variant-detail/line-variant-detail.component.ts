@@ -45,9 +45,8 @@ export class LineVariantDetailComponent implements OnInit {
     allAnnouncements: Announcement[] = []; // For ANR dropdown
 
     directionOptions = [
-        { value: 0, label: '0: Z' },
-        { value: 1, label: '1: H' },
-        { value: 2, label: '2: R' }
+        { value: 1, label: '1: Hin' },
+        { value: 2, label: '2: Rück' }
     ];
 
     isNew = false;
@@ -98,9 +97,8 @@ export class LineVariantDetailComponent implements OnInit {
                 this.variant.LI_NR = this.lineId;
                 this.variant.STR_LI_VAR = '';
                 this.variant.BASIS_VERSION = 1;
-                // Defaults
-                this.variant.STR_LID = this.line?.STR_LID || '';
-                this.variant.LIN_NAME = this.line?.LIN_NAME || '';
+                this.variant.LI_RI_NR = 1;
+                // Line-level fields are inherited server-side from existing Fahrwege.
             } else {
                 this.isNew = false;
                 this.loadVariant();
